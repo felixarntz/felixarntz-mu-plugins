@@ -5,28 +5,16 @@
 	<rule ref="PHPCompatibility"/>
 	<config name="testVersion" value="7.0-"/>
 
-	<rule ref="WordPress-Docs">
-		<exclude-pattern>tests/*</exclude-pattern>
-	</rule>
-	<rule ref="WordPress-Extra">
-		<exclude name="Generic.CodeAnalysis.UselessOverridingMethod"/>
-		<exclude name="WordPress.Files.FileName"/>
-		<exclude name="Universal.CodeAnalysis.ConstructorDestructorReturn.ReturnTypeFound"/>
-		<exclude name="Universal.CodeAnalysis.ConstructorDestructorReturn.ReturnValueFound"/>
-		<exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound"/>
-		<exclude-pattern>tests/*</exclude-pattern>
-	</rule>
+	<rule ref="WordPress-Docs"/>
+	<rule ref="WordPress-Extra"/>
 	<rule ref="WordPress.WP.I18n"/>
-	<config name="text_domain" value="wp-plugin-starter,default"/>
+	<config name="text_domain" value="felixarntz-mu-plugins,default"/>
 
 	<arg value="ps"/>
 	<arg name="extensions" value="php"/>
 
-	<file>./includes</file>
-	<file>./constants.php</file>
-	<file>./load.php</file>
-	<file>./uninstall.php</file>
-	<file>./tests</file>
+	<file>./felixarntz-mu-plugins</file>
+	<file>./felixarntz-mu-plugins.php</file>
 
 	<!--
 	Prevent errors caused by WordPress Coding Standards not supporting PHP 8.0+.

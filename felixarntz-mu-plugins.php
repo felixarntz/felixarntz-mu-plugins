@@ -22,7 +22,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Loads the MU plugin files from the subdirectory.
  */
 function felixarntz_mu_plugins_load() {
-	$files = glob( __DIR__ . '/felixarntz-mu-plugins/*.php' );
+	// Optional allowlist of slugs (file names without PHP extension).
+	$allowlist = array();
+
+	// If allowlist is used, load only those files, otherwise load all files.
+	if ( $allowlist ) {
+		$files = array_map(
+			static function ( $slug ) {
+				return __DIR__ . '/felixarntz-mu-plugins/' . $slug . '.php';
+			}
+		);
+	} else {
+		$files = glob( __DIR__ . '/felixarntz-mu-plugins/*.php' );
+	}
+
 	foreach ( $files as $file ) {
 		require_once $file;
 	}

@@ -1,0 +1,21 @@
+{
+  "name": "felixarntz/felixarntz-mu-plugins",
+  "description": "My collection of MU plugins in individual files within a subdirectory.",
+  "type": "wordpress-muplugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.0"
+  },
+  "scripts": {
+    "format": "phpcbf --standard=phpcs.xml.dist",
+    "lint": "phpcs --standard=phpcs.xml.dist"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

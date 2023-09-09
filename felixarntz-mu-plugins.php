@@ -18,6 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once __DIR__ . '/felixarntz-mu-plugins/shared/loader.php';
+
 /**
  * Loads the MU plugin files from the subdirectory.
  */

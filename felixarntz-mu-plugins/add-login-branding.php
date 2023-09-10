@@ -26,8 +26,8 @@ add_action(
 	static function () {
 		$config = Shared\Config::instance();
 
-		$highlight_color       = $config->get( 'login_highlight_color', '#21759b' );
-		$highlight_color_hover = $config->get( 'login_highlight_color_hover', '#006799' );
+		$highlight_color       = $config->get( 'login_highlight_color', '' );
+		$highlight_color_hover = $config->get( 'login_highlight_color_hover', '' );
 		$header_image_url      = $config->get( 'login_header_image_url', '' );
 		$header_image_size     = $config->get( 'login_header_image_size', '' );
 

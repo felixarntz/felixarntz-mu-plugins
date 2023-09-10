@@ -30,7 +30,7 @@ add_filter(
 			$config->get( "allowed_block_types_{$context->name}", array() ),
 		);
 		if ( isset( $context->post->post_type ) ) {
-			$allowed[] = $config->get( "allowed_block_types_for_post_type_{$context->post->post_type}", array() );
+			$allowed[] = $config->get( "allowed_block_types_post_type_{$context->post->post_type}", array() );
 		}
 		$allowed = array_filter( $allowed );
 

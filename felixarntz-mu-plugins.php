@@ -27,6 +27,25 @@ function felixarntz_mu_plugins_load() {
 	// Optional allowlist of slugs (file names without PHP extension).
 	$allowlist = array();
 
+	// Optional configuration for the individual files.
+	$config = new Shared\Config(
+		array(
+			'allowed_block_types_all'            => array(),
+			'allowed_block_types_core/edit-post' => array(),
+			'allowed_block_types_core/edit-site' => array(),
+			'allowed_block_types_post_type_page' => array(),
+			'client_role_display_name'           => '',
+			'client_role_additional_caps'        => array(),
+			'login_highlight_color'              => '',
+			'login_highlight_color_hover'        => '',
+			'login_header_image_url'             => '',
+			'login_header_image_size'            => '',
+			'replace_dashboard_startup_screen'   => 'edit.php',
+			'rest_root'                          => 'api',
+		)
+	);
+	Shared\Config::instance( $config );
+
 	// If allowlist is used, load only those files, otherwise load all files.
 	if ( $allowlist ) {
 		$files = array_map(

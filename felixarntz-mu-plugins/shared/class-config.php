@@ -8,6 +8,7 @@
 namespace Felix_Arntz\MU_Plugins\Shared;
 
 use ArrayAccess;
+use Exception;
 use Countable;
 use IteratorAggregate;
 use Traversable;
@@ -38,11 +39,23 @@ class Config implements ArrayAccess, Countable, IteratorAggregate {
 	/**
 	 * Gets the main instance of the config.
 	 *
+	 * @param Config $config Optional. Config to set as the main instance. Cannot be used once the main instance has
+	 *                       been created. Default null.
 	 * @return Config Main instance.
+	 *
+	 * @throws Exception Thrown when a config instance is passed despite the main instance being already set.
 	 */
-	public static function instance(): Config {
+	public static function instance( Config $config = null ): Config {
+		if ( $config && null !== static::$instance ) {
+			throw new Exception( 'Cannot pass config instance as main instance was already set.' );
+		}
+
 		if ( null === static::$instance ) {
-			static::$instance = new static( array() );
+			if ( $config ) {
+				static::$instance = $config;
+			} else {
+				static::$instance = new static( array() );
+			}
 		}
 		return static::$instance;
 	}

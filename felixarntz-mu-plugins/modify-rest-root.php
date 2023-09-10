@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-require_once __DIR__ . '/felixarntz-mu-plugins/shared/loader.php';
+require_once __DIR__ . '/shared/loader.php';
 
 add_filter(
 	'rest_url_prefix',

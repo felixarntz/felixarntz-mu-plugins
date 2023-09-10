@@ -86,7 +86,7 @@ add_action(
 		}
 
 		if ( isset( $screens_to_redirect[ $pagenow ] ) ) {
-			wp_safe_redirect( admin_url(), 301 );
+			wp_safe_redirect( admin_url() );
 			exit;
 		}
 	},

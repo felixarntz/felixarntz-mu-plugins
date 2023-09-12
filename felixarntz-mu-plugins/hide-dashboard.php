@@ -38,16 +38,12 @@ add_action(
 
 			// If now there is only the dashboard left, hide the entire dashboard menu.
 			if ( count( $submenu['index.php'] ) === 1 ) {
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$menu[2][1] = 'do_not_allow';
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$submenu['index.php'][0][1] = 'do_not_allow';
+				unset( $menu[2], $submenu['index.php'] );
 
 				// If there is no other menu above the first separator, hide the separator as well.
 				reset( $menu );
-				if ( key( $menu ) === 2 && ! isset( $menu[3] ) ) {
-					// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-					$menu[4][1] = 'do_not_allow';
+				if ( key( $menu ) === 4 ) {
+					unset( $menu[4] );
 				}
 
 				// Redirect to another startup screen when index.php is hit.

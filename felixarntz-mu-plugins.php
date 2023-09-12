@@ -35,7 +35,11 @@ function felixarntz_mu_plugins_load() {
 			'allowed_block_types_core/edit-site' => array(),
 			'allowed_block_types_post_type_page' => array(),
 			'client_role_display_name'           => '',
-			'client_role_additional_caps'        => array(),
+			'client_role_additional_caps'        => array(
+				'update_core',
+				'update_plugins',
+				'update_themes',
+			),
 			'login_highlight_color'              => '',
 			'login_highlight_color_hover'        => '',
 			'login_header_image_url'             => '',

@@ -1,0 +1,14 @@
+{
+  "core": null,
+  "plugins": [ "." ],
+  "env": {
+    "tests": {
+      "config": {
+        "FS_METHOD": "direct",
+        "WP_DEBUG": true,
+        "WP_DISABLE_FATAL_ERROR_HANDLER": true
+      },
+      "phpVersion": "8.0"
+    }
+  }
+}

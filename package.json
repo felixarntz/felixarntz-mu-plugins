@@ -1,0 +1,11 @@
+{
+  "name": "felixarntz-mu-plugins",
+  "license": "GPL-2.0-or-later",
+  "repository": "git+https://github.com/felixarntz/felixarntz-mu-plugins.git",
+  "devDependencies": {
+    "@wordpress/env": "^8.7.0"
+  },
+  "scripts": {
+    "wp-env": "wp-env"
+  }
+}

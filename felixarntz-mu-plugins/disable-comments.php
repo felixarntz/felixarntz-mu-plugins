@@ -54,7 +54,7 @@ add_action(
 <style type="text/css">
 	label[for="default_comment_status"],
 	label[for="default_comment_status"] + br {
-		display: none;
+		display: none !important;
 	}
 </style>
 		<?php

@@ -36,6 +36,7 @@ function felixarntz_mu_plugins_load() {
 			'allowed_block_types_post_type_page' => array(),
 			'client_role_display_name'           => '',
 			'client_role_additional_caps'        => array(
+				'edit_theme_options',
 				'update_core',
 				'update_plugins',
 				'update_themes',

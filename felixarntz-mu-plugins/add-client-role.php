@@ -70,6 +70,7 @@ add_action(
 		$roles_installed = get_option( 'felixarntz_roles_installed' );
 		if ( $roles_installed !== $roles_hash ) {
 			foreach ( $roles as $role => $data ) {
+				remove_role( $role );
 				add_role( $role, $data['display_name'], $data['capabilities'] );
 			}
 			update_option( 'felixarntz_roles_installed', $roles_hash );

@@ -25,24 +25,34 @@ add_filter(
 	static function ( $block_types, $context ) {
 		$config = Shared\Config::instance();
 
-		$allowed = array(
+		$allowed    = array(
 			$config->get( 'allowed_block_types_all', array() ),
 			$config->get( "allowed_block_types_{$context->name}", array() ),
 		);
+		$disallowed = array(
+			$config->get( 'disallowed_block_types_all', array() ),
+			$config->get( "disallowed_block_types_{$context->name}", array() ),
+		);
 		if ( isset( $context->post->post_type ) ) {
-			$allowed[] = $config->get( "allowed_block_types_post_type_{$context->post->post_type}", array() );
+			$allowed[]    = $config->get( "allowed_block_types_post_type_{$context->post->post_type}", array() );
+			$disallowed[] = $config->get( "disallowed_block_types_post_type_{$context->post->post_type}", array() );
 		}
-		$allowed = array_filter( $allowed );
+		$allowed    = array_filter( $allowed );
+		$disallowed = array_filter( $disallowed );
 
-		if ( ! $allowed ) {
+		// Bail without changes if no customizations are provided.
+		if ( ! $allowed && ! $disallowed ) {
 			return $block_types;
 		}
 
 		/*
-		 * If $block_types is already an array, rely on it.
-		 * Otherwise, use the list of all registered block types.
+		 * If any allowlist is provided, initialize the allowed block map empty.
+		 * Otherwise, start with a list of all registered block types to then disallow certain block types from there,
+		 * unless the original $block_types has already been limited, in which case that should be the starting point.
 		 */
-		if ( is_array( $block_types ) ) {
+		if ( $allowed ) {
+			$block_map = array();
+		} elseif ( is_array( $block_types ) ) {
 			$block_map = array_fill_keys( $block_types, true );
 		} else {
 			$block_map = array_map(
@@ -51,13 +61,16 @@ add_filter(
 			);
 		}
 
-		// Amend the default block map with the configured overrides.
-		foreach ( $allowed as $allow_map ) {
-			// If an indexed array, transform it to a block types map with each type enabled.
-			if ( isset( $allow_map[0] ) ) {
-				$allow_map = array_fill_keys( $allow_map, true );
+		// Amend the initial block map with the configured overrides.
+		foreach ( $allowed as $allowed_blocks ) {
+			foreach ( $allowed_blocks as $allowed_block ) {
+				$block_map[ $allowed_block ] = true;
 			}
-			$block_map = array_merge( $block_map, $allow_map );
+		}
+		foreach ( $disallowed as $disallowed_blocks ) {
+			foreach ( $disallowed_blocks as $disallowed_block ) {
+				$block_map[ $disallowed_block ] = false;
+			}
 		}
 
 		$block_types = array_keys( array_filter( $block_map ) );

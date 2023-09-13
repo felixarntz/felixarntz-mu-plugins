@@ -55,9 +55,9 @@ add_action(
 		if ( count( $submenu['themes.php'] ) === 1 && isset( $menu[60][2] ) && 'themes.php' === $menu[60][2] ) {
 			reset( $submenu['themes.php'] );
 			$index = key( $submenu['themes.php'] );
-			if ( _x( 'Editor', 'site editor menu item', 'default' ) === $submenu['themes.php'][ $index ][2] ) {
+			if ( _x( 'Editor', 'site editor menu item', 'default' ) === $submenu['themes.php'][ $index ][0] ) {
 				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$submenu['themes.php'][ $index ][2] = __( 'Site Editor', 'default' );
+				$submenu['themes.php'][ $index ][0] = __( 'Site Editor', 'default' );
 			}
 			for ( $i = 0; $i < 3; $i++ ) {
 				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited

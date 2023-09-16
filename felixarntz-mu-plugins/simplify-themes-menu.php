@@ -64,5 +64,6 @@ add_action(
 				$menu[60][ $i ] = $submenu['themes.php'][ $index ][ $i ];
 			}
 		}
-	}
+	},
+	100
 );

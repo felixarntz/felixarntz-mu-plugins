@@ -71,7 +71,8 @@ add_action(
 		if ( has_filter( 'pings_open', '__return_false' ) ) {
 			remove_submenu_page( 'options-general.php', 'options-discussion.php' );
 		}
-	}
+	},
+	100
 );
 add_action(
 	'admin_init',

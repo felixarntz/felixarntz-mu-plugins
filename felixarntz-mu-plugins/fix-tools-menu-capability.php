@@ -36,5 +36,6 @@ add_action(
 				$submenu['tools.php'][5][1] = 'import';
 			}
 		}
-	}
+	},
+	100
 );

@@ -43,7 +43,7 @@ add_action(
 
 				// If there are any extra items, move them under Settings.
 				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$submenu['options-general.php'][12] = $submenu_item;
+				$submenu['options-general.php'][] = $submenu_item;
 			}
 			unset( $menu[70] );
 			unset( $submenu['profile.php'] );

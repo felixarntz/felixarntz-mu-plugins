@@ -6,7 +6,13 @@
 	<config name="testVersion" value="7.0-"/>
 
 	<rule ref="WordPress-Docs"/>
-	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Extra">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="edit_layout"/>
+			</property>
+		</properties>
+	</rule>
 	<rule ref="WordPress.WP.I18n"/>
 	<config name="text_domain" value="felixarntz-mu-plugins,default"/>
 

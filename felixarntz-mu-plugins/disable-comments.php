@@ -33,7 +33,7 @@ add_action(
 	static function () {
 		remove_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
 	},
-	100
+	PHP_INT_MAX
 );
 add_action(
 	'admin_init',
@@ -72,7 +72,7 @@ add_action(
 			remove_submenu_page( 'options-general.php', 'options-discussion.php' );
 		}
 	},
-	100
+	PHP_INT_MAX
 );
 add_action(
 	'admin_init',

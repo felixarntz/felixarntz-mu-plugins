@@ -41,8 +41,9 @@ add_action(
 				unset( $menu[2], $submenu['index.php'] );
 
 				// If there is no other menu above the first separator, hide the separator as well.
-				reset( $menu );
-				if ( key( $menu ) === 4 ) {
+				$sorted_menu = $menu;
+				ksort( $sorted_menu );
+				if ( key( $sorted_menu ) === 4 ) {
 					unset( $menu[4] );
 				}
 
@@ -69,5 +70,5 @@ add_action(
 			}
 		}
 	},
-	100
+	PHP_INT_MAX
 );

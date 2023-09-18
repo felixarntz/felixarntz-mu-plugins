@@ -65,5 +65,5 @@ add_action(
 			}
 		}
 	},
-	100
+	PHP_INT_MAX
 );

@@ -49,5 +49,5 @@ add_action(
 			unset( $submenu['profile.php'] );
 		}
 	},
-	100
+	PHP_INT_MAX
 );

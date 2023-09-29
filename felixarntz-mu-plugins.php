@@ -49,6 +49,7 @@ function felixarntz_mu_plugins_load() {
 			'login_highlight_color_hover'           => '',
 			'login_header_image_url'                => '',
 			'login_header_image_size'               => '',
+			'remove_dashboard_widgets'              => array(),
 			'replace_dashboard_startup_screen'      => 'edit.php',
 			'rest_root'                             => 'api',
 		)

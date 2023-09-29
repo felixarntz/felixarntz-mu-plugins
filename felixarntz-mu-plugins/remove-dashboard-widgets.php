@@ -18,6 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once __DIR__ . '/shared/loader.php';
+
 add_action(
 	'do_meta_boxes',
 	static function ( $screen_id ) {
@@ -53,6 +55,15 @@ add_action(
 					remove_meta_box( 'dashboard_site_health', $screen_id, 'normal' );
 				}
 			}
+		}
+
+		$config             = Shared\Config::instance();
+		$additional_widgets = $config->get( 'remove_dashboard_widgets', array() );
+		if ( ! $additional_widgets ) {
+			return;
+		}
+		foreach ( $additional_widgets as $widget_id => $context ) {
+			remove_meta_box( $widget_id, $screen_id, $context );
 		}
 	}
 );

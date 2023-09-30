@@ -105,10 +105,7 @@ class Admin_Menu {
 			return array();
 		}
 
-		reset( $submenu[ $menu_slug ] );
-		$index = key( $submenu[ $menu_slug ] );
-
-		return $submenu[ $menu_slug ][ $index ];
+		return reset( $submenu[ $menu_slug ] );
 	}
 
 	/**
@@ -271,18 +268,25 @@ class Admin_Menu {
 	 * @return bool True on success, false on failure.
 	 */
 	public function move_submenu_page( string $menu_slug, string $submenu_slug, string $new_menu_slug, $target_index = null ): bool {
-		global $submenu;
+		global $submenu, $_wp_submenu_nopriv;
 
 		if ( ! isset( $submenu[ $menu_slug ] ) ) {
 			return false;
 		}
 
-		// TODO: Check whether new menu already exists.
-		// If not (or under nopriv menus), make sure it's properly set up.
+		// Bail if the submenu to move the page to does not exist, or set it if the user simply lacks permissions.
+		if ( ! isset( $submenu[ $new_menu_slug ] ) && ! isset( $_wp_submenu_nopriv[ $new_menu_slug ] ) ) {
+			return false;
+		}
 
 		foreach ( $submenu[ $menu_slug ] as $index => $item ) {
 			if ( $submenu_slug === $item[2] ) {
 				unset( $submenu[ $menu_slug ][ $index ] );
+
+				if ( ! isset( $submenu[ $new_menu_slug ] ) ) {
+					// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+					$submenu[ $new_menu_slug ] = array();
+				}
 
 				if ( $target_index ) {
 					// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -332,6 +336,23 @@ class Admin_Menu {
 			unset( $this->menu_map[ $menu_slug ] );
 		}
 
+		return true;
+	}
+
+	/**
+	 * Refreshes a menu page's data based on its first submenu item.
+	 *
+	 * @param string $menu_slug The menu slug or title.
+	 * @return bool True on success, false on failure.
+	 */
+	public function sort_submenu( string $menu_slug ): bool {
+		global $submenu;
+
+		if ( ! isset( $submenu[ $menu_slug ] ) ) {
+			return false;
+		}
+
+		ksort( $submenu[ $menu_slug ] );
 		return true;
 	}
 

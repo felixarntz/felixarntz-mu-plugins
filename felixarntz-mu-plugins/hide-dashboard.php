@@ -41,6 +41,11 @@ add_action(
 						return;
 					}
 					$submenu_page_count--;
+					if ( $admin_menu->get_submenu_page_count( 'options-general.php' ) === 1 ) {
+						$admin_menu->refresh_menu_page_data( 'options-general.php' );
+					} else {
+						$admin_menu->sort_submenu( 'options-general.php' );
+					}
 				}
 			}
 

@@ -18,10 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once __DIR__ . '/shared/loader.php';
+
 add_action(
 	'admin_menu',
 	static function () {
-		global $menu, $submenu;
+		global $submenu;
 
 		if ( current_user_can( 'switch_themes' ) ) {
 			return;
@@ -52,17 +54,13 @@ add_action(
 		 * If there's only one item left in the Themes menu, it's either the Site Editor or Customizer, so make it the
 		 * only item.
 		 */
-		if ( count( $submenu['themes.php'] ) === 1 && isset( $menu[60][2] ) && 'themes.php' === $menu[60][2] ) {
-			reset( $submenu['themes.php'] );
-			$index = key( $submenu['themes.php'] );
-			if ( _x( 'Editor', 'site editor menu item', 'default' ) === $submenu['themes.php'][ $index ][0] ) {
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$submenu['themes.php'][ $index ][0] = __( 'Site Editor', 'default' );
+		$admin_menu = Shared\Admin_Menu::instance();
+		if ( $admin_menu->get_submenu_page_count( 'themes.php' ) === 1 && $admin_menu->get_menu_page( 'themes.php' ) ) {
+			$first_submenu_page = $admin_menu->get_first_submenu_page( 'themes.php' );
+			if ( _x( 'Editor', 'site editor menu item', 'default' ) === $first_submenu_page[0] ) {
+				$admin_menu->update_submenu_page_title( 'themes.php', $first_submenu_page[2], __( 'Site Editor', 'default' ) );
 			}
-			for ( $i = 0; $i < 3; $i++ ) {
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$menu[60][ $i ] = $submenu['themes.php'][ $index ][ $i ];
-			}
+			$admin_menu->refresh_menu_page_data( 'themes.php' );
 		}
 	},
 	PHP_INT_MAX

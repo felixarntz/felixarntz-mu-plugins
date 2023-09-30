@@ -24,21 +24,29 @@ require_once __DIR__ . '/shared/loader.php';
 add_action(
 	'admin_menu',
 	static function () {
-		global $menu, $submenu;
+		global $menu;
 
-		if ( isset( $menu[2] ) && 'index.php' === $menu[2][2] && isset( $submenu['index.php'][0] ) && count( $submenu['index.php'] ) <= 2 ) {
+		$admin_menu = Shared\Admin_Menu::instance();
+		if ( $admin_menu->get_menu_page( 'index.php' ) ) {
+			$submenu_page_count = $admin_menu->get_submenu_page_count( 'index.php' );
+
 			// Migrate the other WordPress submenu items to options pages.
-			foreach ( $submenu['index.php'] as $index => $submenu_item ) {
-				if ( 'my-sites.php' === $submenu_item[2] || 'update-core.php' === $submenu_item[2] ) {
-					// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-					$submenu['options-general.php'][12] = $submenu_item;
-					unset( $submenu['index.php'][ $index ] );
+			if ( 2 === $submenu_page_count ) {
+				$extra_submenu_page = $admin_menu->get_submenu_page( 'index.php', 'update-core.php' );
+				if ( ! $extra_submenu_page ) {
+					$extra_submenu_page = $admin_menu->get_submenu_page( 'index.php', 'my-sites.php' );
+				}
+				if ( $extra_submenu_page ) {
+					if ( ! $admin_menu->move_submenu_page( 'index.php', $extra_submenu_page[2], 'options-general.php', 12 ) ) {
+						return;
+					}
+					$submenu_page_count--;
 				}
 			}
 
 			// If now there is only the dashboard left, hide the entire dashboard menu.
-			if ( count( $submenu['index.php'] ) === 1 ) {
-				unset( $menu[2], $submenu['index.php'] );
+			if ( $submenu_page_count < 2 ) {
+				$admin_menu->remove_menu_page( 'index.php' );
 
 				// If there is no other menu above the first separator, hide the separator as well.
 				$sorted_menu = $menu;

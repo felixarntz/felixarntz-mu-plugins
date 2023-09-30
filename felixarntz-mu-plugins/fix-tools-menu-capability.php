@@ -18,23 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once __DIR__ . '/shared/loader.php';
+
 add_action(
 	'admin_menu',
 	static function () {
-		global $menu, $submenu;
-
 		// Bail if additional cards may be present under "Available Tools".
 		if ( has_action( 'tool_box' ) ) {
 			return;
 		}
 
-		if ( isset( $menu[75] ) && 'tools.php' === $menu[75][2] ) {
-			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-			$menu[75][1] = 'import';
-			if ( isset( $submenu['tools.php'][5] ) && 'tools.php' === $submenu['tools.php'][5][2] ) {
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$submenu['tools.php'][5][1] = 'import';
-			}
+		$admin_menu = Shared\Admin_Menu::instance();
+		if ( $admin_menu->update_menu_page_cap( 'tools.php', 'import' ) ) {
+			$admin_menu->update_submenu_page_cap( 'tools.php', 'tools.php', 'import' );
 		}
 	},
 	PHP_INT_MAX

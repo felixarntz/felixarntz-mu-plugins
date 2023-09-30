@@ -10,3 +10,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once __DIR__ . '/class-config.php';
+require_once __DIR__ . '/class-admin-menu.php';

@@ -18,35 +18,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once __DIR__ . '/shared/loader.php';
+
 add_action(
 	'admin_menu',
 	static function () {
-		global $menu, $submenu;
+		$admin_menu = Shared\Admin_Menu::instance();
 
 		// If full Users menu is present, remove Profile submenu item.
-		if ( isset( $menu[70][2] ) && 'users.php' === $menu[70][2] ) {
-			foreach ( $submenu['users.php'] as $index => $submenu_item ) {
-				if ( 'profile.php' === $submenu_item[2] ) {
-					unset( $submenu['users.php'][ $index ] );
-					break;
-				}
-			}
+		if ( $admin_menu->get_menu_page( 'users.php' ) ) {
+			$admin_menu->remove_submenu_page( 'users.php', 'profile.php' );
 			return;
 		}
 
 		// Otherwise, remove the entire Profile menu item.
-		if ( isset( $menu[70][2] ) && 'profile.php' === $menu[70][2] ) {
-			foreach ( $submenu['profile.php'] as $index => $submenu_item ) {
-				if ( 'profile.php' === $submenu_item[2] ) {
-					continue;
-				}
-
+		if ( $admin_menu->get_menu_page( 'profile.php' ) ) {
+			if ( $admin_menu->remove_submenu_page( 'profile.php', 'profile.php' ) ) {
 				// If there are any extra items, move them under Settings.
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$submenu['options-general.php'][] = $submenu_item;
+				$submenu_page = $admin_menu->get_first_submenu_page( 'profile.php' );
+				while ( $submenu_page ) {
+					if ( $admin_menu->move_submenu_page( 'profile.php', $submenu_page[2], 'options-general.php' ) ) {
+						$submenu_page = $admin_menu->get_first_submenu_page( 'profile.php' );
+					} else {
+						$submenu_page = array();
+					}
+				}
 			}
-			unset( $menu[70] );
-			unset( $submenu['profile.php'] );
 		}
 	},
 	PHP_INT_MAX

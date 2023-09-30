@@ -18,6 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once __DIR__ . '/shared/loader.php';
+
 // Force comment status to closed.
 add_filter( 'comments_open', '__return_false' );
 add_filter(
@@ -65,11 +67,12 @@ add_action(
 add_action(
 	'admin_menu',
 	static function () {
-		remove_menu_page( 'edit-comments.php' );
+		$admin_menu = Shared\Admin_Menu::instance();
+		$admin_menu->remove_menu_page( 'edit-comments.php' );
 
 		// If pingbacks are also disabled, remove the entire Discussion settings page.
 		if ( has_filter( 'pings_open', '__return_false' ) ) {
-			remove_submenu_page( 'options-general.php', 'options-discussion.php' );
+			$admin_menu->remove_submenu_page( 'options-general.php', 'options-discussion.php' );
 		}
 	},
 	PHP_INT_MAX

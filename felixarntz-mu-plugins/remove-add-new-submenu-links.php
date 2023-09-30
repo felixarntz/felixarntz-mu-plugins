@@ -20,7 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/shared/loader.php';
 
-// Hide the dashboard menu if it only contains the default WordPress submenu items.
 add_action(
 	'admin_menu',
 	static function () {

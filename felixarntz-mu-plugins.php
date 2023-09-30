@@ -45,6 +45,7 @@ function felixarntz_mu_plugins_load() {
 				'update_plugins',
 				'update_themes',
 			),
+			'indent_content_menu_taxonomies'        => false,
 			'login_highlight_color'                 => '',
 			'login_highlight_color_hover'           => '',
 			'login_header_image_url'                => '',

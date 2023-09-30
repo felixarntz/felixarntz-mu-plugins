@@ -81,6 +81,13 @@ add_action(
 			return;
 		}
 
+		// If there is no redirect or it is pointing to the admin, there is no need to show the custom error.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$redirect = isset( $_GET['redirect_to'] ) ? $_GET['redirect_to'] : '';
+		if ( ! $redirect || str_starts_with( $redirect, admin_url() ) ) {
+			return;
+		}
+
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$error = __( 'You need to be logged in to access this content.', 'felixarntz-mu-plugins' );
 	}

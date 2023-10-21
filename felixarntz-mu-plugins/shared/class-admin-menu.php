@@ -66,6 +66,22 @@ class Admin_Menu {
 	}
 
 	/**
+	 * Gets a menu page's submenu items.
+	 *
+	 * @param string $menu_slug The menu slug or file.
+	 * @return array List of submenu items data, or empty array if the menu doesn't exist.
+	 */
+	public function get_submenu_pages( string $menu_slug ): array {
+		global $submenu;
+
+		if ( ! isset( $submenu[ $menu_slug ] ) ) {
+			return array();
+		}
+
+		return $submenu[ $menu_slug ];
+	}
+
+	/**
 	 * Gets a submenu page's data.
 	 *
 	 * @param string $menu_slug    The parent menu slug or file.
@@ -268,14 +284,14 @@ class Admin_Menu {
 	 * @return bool True on success, false on failure.
 	 */
 	public function move_submenu_page( string $menu_slug, string $submenu_slug, string $new_menu_slug, $target_index = null ): bool {
-		global $submenu, $_wp_submenu_nopriv;
+		global $submenu, $_wp_submenu_nopriv, $_registered_pages, $_parent_pages;
 
 		if ( ! isset( $submenu[ $menu_slug ] ) ) {
 			return false;
 		}
 
-		// Bail if the submenu to move the page to does not exist, or set it if the user simply lacks permissions.
-		if ( ! isset( $submenu[ $new_menu_slug ] ) && ! isset( $_wp_submenu_nopriv[ $new_menu_slug ] ) ) {
+		// Bail if the new menu does not exist.
+		if ( ! isset( $_parent_pages[ $new_menu_slug ] ) && ! isset( $submenu[ $new_menu_slug ] ) && ! isset( $_wp_submenu_nopriv[ $new_menu_slug ] ) ) {
 			return false;
 		}
 
@@ -299,6 +315,10 @@ class Admin_Menu {
 				if ( count( $submenu[ $menu_slug ] ) === 0 ) {
 					$this->remove_menu_page( $menu_slug );
 				}
+
+				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+				$_registered_pages[ get_plugin_page_hookname( $submenu_slug, $new_menu_slug ) ] = true;
+
 				return true;
 			}
 		}

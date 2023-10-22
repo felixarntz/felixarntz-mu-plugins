@@ -123,6 +123,7 @@ add_action(
 
 		$move_plugin_menus = array_merge(
 			array(
+				'akismet-key-config'      => 'settings',
 				'googlesitekit-splash'    => 'insights',
 				'googlesitekit-dashboard' => 'insights',
 				'googlesitekit-settings'  => 'settings',
@@ -130,6 +131,10 @@ add_action(
 				'jetpack#/dashboard'      => 'insights',
 				'my-jetpack'              => 'settings',
 				'jetpack#/settings'       => 'settings',
+				'jetpack-boost'           => 'settings',
+				'wpcf7'                   => 'feedback',
+				'wpcf7-new'               => 'hide',
+				'wpcf7-integration'       => 'settings',
 				'wpseo_dashboard'         => 'hide',
 				'wpseo_page_settings'     => 'settings',
 				'wpseo_integrations'      => 'hide',

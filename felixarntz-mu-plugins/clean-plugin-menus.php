@@ -108,7 +108,8 @@ add_action(
 				trim( explode( '<span class="update-plugins', $menu_page[0] )[0] ),
 				$submenu_page[0]
 			);
-			$admin_menu->update_submenu_page_title( $new_menu_slug, $submenu_page[2], $new_title );
+			$admin_menu->update_submenu_page_menu_title( $new_menu_slug, $submenu_page[2], $new_title );
+			$admin_menu->update_submenu_page_doc_title( $new_menu_slug, $submenu_page[2], $new_title );
 
 			// Copy old page hook so that links to the admin page work correctly.
 			if ( isset( $wp_filter[ $old_hookname ] ) ) {
@@ -117,7 +118,7 @@ add_action(
 				$wp_filter[ $new_hookname ] = $wp_filter[ $old_hookname ];
 			}
 
-			return true;
+			return $new_menu_slug;
 		};
 
 		$move_plugin_menus = array_merge(
@@ -164,27 +165,59 @@ add_action(
 					}
 
 					// Otherwise, attempt to move to the target menu set.
-					if ( $migrate_item( $submenu_page, $menu_page, $move_plugin_menus[ $submenu_page[2] ] ) ) {
-						$moved[ $submenu_page[2] ] = $menu_page[2];
+					$new_menu_slug = $migrate_item( $submenu_page, $menu_page, $move_plugin_menus[ $submenu_page[2] ] );
+					if ( $new_menu_slug ) {
+						$new_parent_file           = str_ends_with( $new_menu_slug, '.php' ) ? $new_menu_slug : 'admin.php';
+						$moved[ $submenu_page[2] ] = array(
+							'old_parent'      => $menu_page[2],
+							'new_parent'      => $new_menu_slug,
+							'new_parent_file' => $new_parent_file,
+							'hash_children'   => array(),
+						);
+						if ( str_contains( $submenu_page[2], '#' ) ) {
+							$unhashed_slug = explode( '#', $submenu_page[2] )[0];
+							if ( isset( $moved[ $unhashed_slug ] ) ) {
+								if ( 'admin.php' === $new_parent_file ) {
+									$moved[ $unhashed_slug ]['new_parent']      = $new_menu_slug;
+									$moved[ $unhashed_slug ]['new_parent_file'] = $new_parent_file;
+								}
+								$moved[ $unhashed_slug ]['hash_children'][] = $submenu_page[2];
+								continue;
+							}
+							$moved[ $unhashed_slug ] = array(
+								'old_parent'      => $menu_page[2],
+								'new_parent'      => $new_menu_slug,
+								'new_parent_file' => $new_parent_file,
+								'hash_children'   => array( $submenu_page[2] ),
+							);
+						}
 					}
 				}
 			}
 		}
 
-		/*
-		 * Temporarily modify the $pagenow global to set it to the original parent page slug so that the other globals
-		 * will be set as if the plugin page was still in its original location. It cannot be set to the original
-		 * parent file as that would not be registered with the correct page hook.
-		 * Afterwards, hook into the load process to reset $pagenow to the original parent page file.
-		 */
 		add_action(
 			'admin_init',
 			function () use ( $moved ) {
 				global $pagenow, $plugin_page;
 
-				if ( isset( $plugin_page ) && isset( $moved[ $plugin_page ] ) ) {
+				if ( ! isset( $plugin_page ) || ! isset( $moved[ $plugin_page ] ) ) {
+					return;
+				}
+
+				$current_moved_page = $moved[ $plugin_page ];
+
+				$original_pagenow = $pagenow;
+
+				/*
+				 * Temporarily modify the $pagenow global to set it to the original parent page slug so that the other globals
+				 * will be set as if the plugin page was still in its original location. It cannot be set to the original
+				 * parent file as that would not be registered with the correct page hook.
+				 * Afterwards, hook into the load process to reset $pagenow to the original parent page file.
+				 */
+				if ( 'admin.php' === $pagenow && 'admin.php' === $current_moved_page['new_parent_file'] ) {
 					// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-					$pagenow = $moved[ $plugin_page ];
+					$pagenow = $moved[ $plugin_page ]['old_parent'];
 
 					add_action(
 						'load-' . get_plugin_page_hook( $plugin_page, $pagenow ),
@@ -194,6 +227,57 @@ add_action(
 							// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 							$pagenow = 'admin.php';
 						}
+					);
+				}
+
+				/*
+				 * Sometimes plugins link to specific URLs using hashes, e.g. for React apps.
+				 * We can't get the URL hash on the server-side.
+				 * So we should try to identify the relevant hash child by assumption.
+				 */
+				if ( $current_moved_page['hash_children'] ) {
+					$found_hash_child = null;
+					foreach ( $current_moved_page['hash_children'] as $submenu_page_slug ) {
+						if ( isset( $moved[ $submenu_page_slug ] ) && $original_pagenow === $moved[ $submenu_page_slug ]['new_parent_file'] ) {
+							$found_hash_child = $moved[ $submenu_page_slug ];
+							break;
+						}
+					}
+
+					if ( ! $found_hash_child ) {
+						return;
+					}
+
+					add_filter(
+						'parent_file',
+						function () use ( $found_hash_child ) {
+							return $found_hash_child['new_parent'];
+						}
+					);
+					add_filter(
+						'submenu_file',
+						function () use ( $submenu_page_slug ) {
+							return $submenu_page_slug;
+						}
+					);
+					add_filter(
+						'admin_title',
+						function ( $admin_title, $title ) use ( $submenu_page_slug, $found_hash_child ) {
+							if ( ! $title ) {
+								global $submenu;
+								if ( isset( $submenu[ $found_hash_child['new_parent'] ] ) ) {
+									foreach ( $submenu[ $found_hash_child['new_parent'] ] as $submenu_item ) {
+										if ( $submenu_page_slug === $submenu_item[2] ) {
+											$title = isset( $submenu_item[3] ) ? $submenu_item[3] : $submenu_item[0];
+											return $title . $admin_title;
+										}
+									}
+								}
+							}
+							return $admin_title;
+						},
+						10,
+						2
 					);
 				}
 			}

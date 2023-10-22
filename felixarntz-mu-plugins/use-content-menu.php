@@ -33,8 +33,8 @@ add_action(
 		}
 
 		// Change the Posts menu to a general content menu, and use title "Posts" instead of "All Posts" for submenu.
-		$admin_menu->update_submenu_page_title( 'edit.php', 'edit.php', $posts_menu[0] );
-		$admin_menu->update_menu_page_title( 'edit.php', __( 'Content', 'default' ) );
+		$admin_menu->update_submenu_page_menu_title( 'edit.php', 'edit.php', $posts_menu[0] );
+		$admin_menu->update_menu_page_menu_title( 'edit.php', __( 'Content', 'default' ) );
 
 		$menu_tmpl    = 'edit.php?post_type=%s';
 		$add_new_tmpl = 'post-new.php?post_type=%s';
@@ -85,7 +85,7 @@ add_action(
 			$admin_menu->remove_submenu_page( $menu_file, $add_new_file );
 
 			// Rename submenu item to use the overall menu's title (e.g. "Pages" instead of "All Pages").
-			$admin_menu->update_submenu_page_title( $menu_file, $menu_file, $post_type_menu[0] );
+			$admin_menu->update_submenu_page_menu_title( $menu_file, $menu_file, $post_type_menu[0] );
 
 			// Move all submenu pages to the new Content menu.
 			$submenu_page = $admin_menu->get_first_submenu_page( $menu_file );

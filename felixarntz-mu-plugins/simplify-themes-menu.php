@@ -58,7 +58,7 @@ add_action(
 		if ( $admin_menu->get_submenu_page_count( 'themes.php' ) === 1 && $admin_menu->get_menu_page( 'themes.php' ) ) {
 			$first_submenu_page = $admin_menu->get_first_submenu_page( 'themes.php' );
 			if ( _x( 'Editor', 'site editor menu item', 'default' ) === $first_submenu_page[0] ) {
-				$admin_menu->update_submenu_page_title( 'themes.php', $first_submenu_page[2], __( 'Site Editor', 'default' ) );
+				$admin_menu->update_submenu_page_menu_title( 'themes.php', $first_submenu_page[2], __( 'Site Editor', 'default' ) );
 			}
 			$admin_menu->refresh_menu_page_data( 'themes.php' );
 		}

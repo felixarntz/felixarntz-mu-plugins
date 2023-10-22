@@ -184,13 +184,13 @@ class Admin_Menu {
 	}
 
 	/**
-	 * Updates a menu page's title.
+	 * Updates a menu page's menu title.
 	 *
 	 * @param string $menu_slug The menu slug or file.
-	 * @param string $new_title New title to assign.
+	 * @param string $new_title New menu title to assign.
 	 * @return bool True on success, false on failure.
 	 */
-	public function update_menu_page_title( string $menu_slug, string $new_title ): bool {
+	public function update_menu_page_menu_title( string $menu_slug, string $new_title ): bool {
 		global $menu;
 
 		if ( ! isset( $this->menu_map[ $menu_slug ] ) ) {
@@ -222,14 +222,33 @@ class Admin_Menu {
 	}
 
 	/**
-	 * Updates a submenu page's title.
+	 * Updates a menu page's doc title.
+	 *
+	 * @param string $menu_slug The menu slug or file.
+	 * @param string $new_title New doc title to assign.
+	 * @return bool True on success, false on failure.
+	 */
+	public function update_menu_page_doc_title( string $menu_slug, string $new_title ): bool {
+		global $menu;
+
+		if ( ! isset( $this->menu_map[ $menu_slug ] ) ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$menu[ $this->menu_map[ $menu_slug ] ][3] = $new_title;
+		return true;
+	}
+
+	/**
+	 * Updates a submenu page's menu title.
 	 *
 	 * @param string $menu_slug    The parent menu slug or file.
 	 * @param string $submenu_slug The submenu slug or file.
-	 * @param string $new_title    New title to assign.
+	 * @param string $new_title    New menu title to assign.
 	 * @return bool True on success, false on failure.
 	 */
-	public function update_submenu_page_title( string $menu_slug, string $submenu_slug, string $new_title ): bool {
+	public function update_submenu_page_menu_title( string $menu_slug, string $submenu_slug, string $new_title ): bool {
 		global $submenu;
 
 		if ( ! isset( $submenu[ $menu_slug ] ) ) {
@@ -266,6 +285,32 @@ class Admin_Menu {
 			if ( $submenu_slug === $item[2] ) {
 				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 				$submenu[ $menu_slug ][ $index ][1] = $new_cap;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Updates a submenu page's doc title.
+	 *
+	 * @param string $menu_slug    The parent menu slug or file.
+	 * @param string $submenu_slug The submenu slug or file.
+	 * @param string $new_title    New doc title to assign.
+	 * @return bool True on success, false on failure.
+	 */
+	public function update_submenu_page_doc_title( string $menu_slug, string $submenu_slug, string $new_title ): bool {
+		global $submenu;
+
+		if ( ! isset( $submenu[ $menu_slug ] ) ) {
+			return false;
+		}
+
+		foreach ( $submenu[ $menu_slug ] as $index => $item ) {
+			if ( $submenu_slug === $item[2] ) {
+				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+				$submenu[ $menu_slug ][ $index ][3] = $new_title;
 				return true;
 			}
 		}
@@ -318,6 +363,9 @@ class Admin_Menu {
 
 				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 				$_registered_pages[ get_plugin_page_hookname( $submenu_slug, $new_menu_slug ) ] = true;
+
+				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+				$_parent_pages[ $submenu_slug ] = $new_menu_slug;
 
 				return true;
 			}

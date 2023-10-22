@@ -79,6 +79,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 					'update_plugins',
 					'update_themes',
 				),
+				'feedback_menu_title'                   => '',
 				'indent_content_menu_taxonomies'        => false,
 				'insights_menu_title'                   => '',
 				'login_highlight_color'                 => '',

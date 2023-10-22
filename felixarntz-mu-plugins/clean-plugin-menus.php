@@ -29,9 +29,29 @@ add_action(
 		$migrate_item = function ( $submenu_page, $menu_page, $target_menu ) use ( $config, $admin_menu ) {
 			global $wp_filter;
 
+			static $feedback_menu_slug = null;
 			static $insights_menu_slug = null;
 
 			switch ( $target_menu ) {
+				case 'feedback':
+					if ( ! $feedback_menu_slug ) {
+						$menu_title = $config->get( 'feedback_menu_title', '' );
+						if ( ! $menu_title ) {
+							$menu_title = __( 'Feedback', 'felixarntz-mu-plugins' );
+						}
+						add_menu_page(
+							$menu_title,
+							$menu_title,
+							'read',
+							'felixarntz-feedback',
+							static function () {},
+							'dashicons-feedback',
+							30
+						);
+						$feedback_menu_slug = 'felixarntz-feedback';
+					}
+					$new_menu_slug = $feedback_menu_slug;
+					break;
 				case 'insights':
 					if ( ! $insights_menu_slug ) {
 						$menu_title = $config->get( 'insights_menu_title', '' );
@@ -45,15 +65,26 @@ add_action(
 							'felixarntz-insights',
 							static function () {},
 							'dashicons-analytics',
-							30
+							40
 						);
 						$insights_menu_slug = 'felixarntz-insights';
 					}
 					$new_menu_slug = $insights_menu_slug;
 					break;
+				case 'appearance':
+				case 'themes':
+					$new_menu_slug = 'themes.php';
+					break;
+				case 'plugins':
+					$new_menu_slug = 'plugins.php';
+					break;
+				case 'users':
+					$new_menu_slug = 'users.php';
+					break;
 				case 'tools':
 					$new_menu_slug = 'tools.php';
 					break;
+				case 'options':
 				case 'settings':
 					$new_menu_slug = 'options-general.php';
 					break;
@@ -121,11 +152,18 @@ add_action(
 			$submenu_pages = $admin_menu->get_submenu_pages( $menu_slug );
 			foreach ( $submenu_pages as $submenu_page ) {
 				if ( isset( $move_plugin_menus[ $submenu_page[2] ] ) ) {
+					// Do not make any change if no target set.
+					if ( empty( $move_plugin_menus[ $submenu_page[2] ] ) ) {
+						continue;
+					}
+
+					// Simply hide the submenu page if target set to 'hide'.
 					if ( 'hide' === $move_plugin_menus[ $submenu_page[2] ] ) {
 						$admin_menu->remove_submenu_page( $menu_page[2], $submenu_page[2] );
 						continue;
 					}
 
+					// Otherwise, attempt to move to the target menu set.
 					if ( $migrate_item( $submenu_page, $menu_page, $move_plugin_menus[ $submenu_page[2] ] ) ) {
 						$moved[ $submenu_page[2] ] = $menu_page[2];
 					}

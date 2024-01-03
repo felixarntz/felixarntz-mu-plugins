@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Disable Emojiy
+ * Plugin Name: Disable Emoji
  * Plugin URI: https://github.com/felixarntz/felixarntz-mu-plugins
  * Description: Removes emoji script and related logic.
  * Author: Felix Arntz

@@ -88,6 +88,8 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 				'login_header_image_size'               => '',
 				'move_plugin_menus'                     => array(),
 				'remove_dashboard_widgets'              => array(),
+				'remove_wp_head_rest_references'        => false,
+				'remove_wp_head_oembed_references'      => false,
 				'replace_dashboard_startup_screen'      => 'edit.php',
 				'rest_root'                             => 'api',
 			);

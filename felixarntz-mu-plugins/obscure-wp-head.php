@@ -18,12 +18,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once __DIR__ . '/shared/loader.php';
+
 add_filter( 'the_generator', '__return_false' );
 remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 remove_action( 'wp_head', 'wp_generator' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
-remove_action( 'wp_head', 'rest_output_link_wp_head' );
-remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
-remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+
+add_action(
+	'wp_loaded',
+	static function () {
+		$config        = Shared\Config::instance();
+		$remove_rest   = $config->get( 'remove_wp_head_rest_references', false );
+		$remove_oembed = $config->get( 'remove_wp_head_oembed_references', false );
+		if ( $remove_rest ) {
+			remove_action( 'wp_head', 'rest_output_link_wp_head' );
+		}
+		if ( $remove_oembed ) {
+			remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+			remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+		}
+	}
+);

@@ -27,6 +27,7 @@ remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 remove_action( 'wp_head', 'wp_generator' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
 
+// The following removals are conditional as there is a reasonable benefit to keeping them.
 add_action(
 	'wp_loaded',
 	static function () {

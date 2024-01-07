@@ -32,10 +32,6 @@ add_action(
 			return;
 		}
 
-		// Change the Posts menu to a general content menu, and use title "Posts" instead of "All Posts" for submenu.
-		$admin_menu->update_submenu_page_menu_title( 'edit.php', 'edit.php', $posts_menu[0] );
-		$admin_menu->update_menu_page_menu_title( 'edit.php', __( 'Content', 'default' ) );
-
 		$menu_tmpl    = 'edit.php?post_type=%s';
 		$add_new_tmpl = 'post-new.php?post_type=%s';
 		$post_types   = array_merge(
@@ -60,6 +56,10 @@ add_action(
 		if ( count( $eligible_post_types ) <= 1 ) {
 			return;
 		}
+
+		// Change the Posts menu to a general content menu, and use title "Posts" instead of "All Posts" for submenu.
+		$admin_menu->update_submenu_page_menu_title( 'edit.php', 'edit.php', $posts_menu[0] );
+		$admin_menu->update_menu_page_menu_title( 'edit.php', __( 'Content', 'default' ) );
 
 		$taxonomies = get_taxonomies(
 			array(

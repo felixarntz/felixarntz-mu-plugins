@@ -121,6 +121,15 @@ add_action(
 			return $new_menu_slug;
 		};
 
+		$site_domain_path_jetpack_style = rtrim(
+			str_replace(
+				'/',
+				'::',
+				preg_replace( '#^.*?://#', '', home_url() )
+			),
+			':'
+		);
+
 		$move_plugin_menus = array_merge(
 			array(
 				'akismet-key-config'      => 'settings',
@@ -133,6 +142,7 @@ add_action(
 				'jetpack#/settings'       => 'settings',
 				'jetpack-boost'           => 'settings',
 				'jetpack-search'          => 'hide',
+				'https://jetpack.com/redirect/?source=jetpack-menu-calypso-subscribers&site=' . $site_domain_path_jetpack_style => 'hide',
 				'wpcf7'                   => 'feedback',
 				'wpcf7-new'               => 'hide',
 				'wpcf7-integration'       => 'settings',

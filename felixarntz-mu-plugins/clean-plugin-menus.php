@@ -132,6 +132,7 @@ add_action(
 				'my-jetpack'              => 'settings',
 				'jetpack#/settings'       => 'settings',
 				'jetpack-boost'           => 'settings',
+				'jetpack-search'          => 'hide',
 				'wpcf7'                   => 'feedback',
 				'wpcf7-new'               => 'hide',
 				'wpcf7-integration'       => 'settings',

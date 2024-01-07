@@ -48,14 +48,27 @@ add_action(
 				)
 			)
 		);
-		$taxonomies   = get_taxonomies(
+
+		// Check whether there is more than 1 relevant menu to migrate.
+		$eligible_post_types = array_filter(
+			$post_types,
+			static function ( $post_type ) use ( $admin_menu, $menu_tmpl ) {
+				$menu_file = sprintf( $menu_tmpl, $post_type );
+				return $admin_menu->get_menu_page( $menu_file ) ? true : false;
+			}
+		);
+		if ( count( $eligible_post_types ) <= 1 ) {
+			return;
+		}
+
+		$taxonomies = get_taxonomies(
 			array(
 				'show_ui'      => true,
 				'show_in_menu' => true,
 			),
 			'objects'
 		);
-		foreach ( $post_types as $post_type ) {
+		foreach ( $eligible_post_types as $post_type ) {
 			$menu_file    = sprintf( $menu_tmpl, $post_type );
 			$add_new_file = sprintf( $add_new_tmpl, $post_type );
 

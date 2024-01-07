@@ -142,7 +142,7 @@ add_action(
 				'jetpack#/settings'       => 'settings',
 				'jetpack-boost'           => 'settings',
 				'jetpack-search'          => 'hide',
-				'https://jetpack.com/redirect/?source=jetpack-menu-calypso-subscribers&site=' . $site_domain_path_jetpack_style => 'hide',
+				'https://jetpack.com/redirect/?source=jetpack-menu-calypso-subscribers&site=' . $site_domain_path_jetpack_style => 'insights',
 				'wpcf7'                   => 'feedback',
 				'wpcf7-new'               => 'hide',
 				'wpcf7-integration'       => 'settings',

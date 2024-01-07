@@ -158,8 +158,8 @@ add_action(
 			$submenu_pages = $admin_menu->get_submenu_pages( $menu_slug );
 			foreach ( $submenu_pages as $submenu_page ) {
 				if ( isset( $move_plugin_menus[ $submenu_page[2] ] ) ) {
-					// Do not make any change if no target set.
-					if ( empty( $move_plugin_menus[ $submenu_page[2] ] ) ) {
+					// Do not make any change if no target set or explicitly forced to keep.
+					if ( empty( $move_plugin_menus[ $submenu_page[2] ] ) || 'keep' === $move_plugin_menus[ $submenu_page[2] ] ) {
 						continue;
 					}
 

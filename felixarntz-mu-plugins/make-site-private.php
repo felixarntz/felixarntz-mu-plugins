@@ -22,8 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action(
 	'wp',
 	static function () {
-		// Don't redirect if the user is logged in - obviously.
-		if ( is_user_logged_in() ) {
+		/*
+		 * Don't redirect if the user is logged in - obviously.
+		 * Important: Checking `is_user_logged_in()` doesn't work here for some reason.
+		 */
+		if ( current_user_can( 'read' ) ) {
 			return;
 		}
 

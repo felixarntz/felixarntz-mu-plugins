@@ -111,6 +111,30 @@ add_action(
 			}
 		}
 
+		// Override the current parent menu file to be the new "Content" menu where relevant.
+		add_filter(
+			'parent_file',
+			static function ( $parent_file ) {
+				global $post_type, $post_type_object;
+
+				if ( ! isset( $post_type ) ) {
+					return $parent_file;
+				}
+
+				if ( isset( $post_type_object ) && $post_type_object->show_in_menu && true !== $post_type_object->show_in_menu ) {
+					$orig_parent_file = $post_type_object->show_in_menu;
+				} else {
+					$orig_parent_file = "edit.php?post_type=$post_type";
+				}
+
+				if ( $parent_file === $orig_parent_file ) {
+					return 'edit.php';
+				}
+
+				return $parent_file;
+			}
+		);
+
 		/**
 		 * Depending on the configuration, either sort the Content submenu items so that all post types come first,
 		 * before any taxonomies, or alternatively keep the original order and visually indent the taxonomy entries.

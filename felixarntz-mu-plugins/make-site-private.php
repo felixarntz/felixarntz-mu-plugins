@@ -22,10 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action(
 	'wp',
 	static function () {
-		/*
-		 * Don't redirect if the user is logged in - obviously.
-		 * Important: Checking `is_user_logged_in()` doesn't work here for some reason.
-		 */
+		// Don't redirect if the user is logged in - obviously.
 		if ( current_user_can( 'read' ) ) {
 			return;
 		}
@@ -48,7 +45,17 @@ add_action(
 			return;
 		}
 
-		auth_redirect();
+		/*
+		 * Set no-cache headers and redirect.
+		 * Do not use `auth_redirect()` here as it may not work in Chrome.
+		 */
+		nocache_headers();
+		wp_safe_redirect(
+			wp_login_url(
+				set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] )
+			)
+		);
+		exit;
 	}
 );
 

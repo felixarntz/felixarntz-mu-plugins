@@ -25,6 +25,12 @@ add_action(
 	static function () {
 		global $submenu;
 
+		// Bail if the Themes submenu is not applicable.
+		if ( ! isset( $submenu['themes.php'] ) ) {
+			return;
+		}
+
+		// Bail if the user has full Themes access including switching themes.
 		if ( current_user_can( 'switch_themes' ) ) {
 			return;
 		}

@@ -64,6 +64,12 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 		 */
 		public static function config(): array {
 			return array(
+				'admin_color_scheme_base_color'         => '#52accc',
+				'admin_color_scheme_icon_color'         => '#e5f8ff',
+				'admin_color_scheme_text_color'         => '#fff',
+				'admin_color_scheme_highlight_color'    => '#096484',
+				'admin_color_scheme_accent_color'       => '#e1a948',
+				'admin_color_scheme_link_color'         => '#0073aa',
 				'allowed_block_types_all'               => array(),
 				'allowed_block_types_core/edit-post'    => array(),
 				'allowed_block_types_core/edit-site'    => array(),

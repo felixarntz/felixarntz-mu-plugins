@@ -20,37 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/shared/loader.php';
 
-/**
- * Converts a HEX value to RGB.
- *
- * Mostly copied from Twenty Sixteen theme.
- *
- * @param string $color The original color, in 3- or 6-digit hexadecimal form.
- * @return array Array containing RGB (red, green, and blue) values for the given
- *               HEX code, empty array otherwise.
- */
-function hex2rgb( $color ) {
-	$color = trim( $color, '#' );
-
-	if ( strlen( $color ) === 3 ) {
-		$r = hexdec( substr( $color, 0, 1 ) . substr( $color, 0, 1 ) );
-		$g = hexdec( substr( $color, 1, 1 ) . substr( $color, 1, 1 ) );
-		$b = hexdec( substr( $color, 2, 1 ) . substr( $color, 2, 1 ) );
-	} elseif ( strlen( $color ) === 6 ) {
-		$r = hexdec( substr( $color, 0, 2 ) );
-		$g = hexdec( substr( $color, 2, 2 ) );
-		$b = hexdec( substr( $color, 4, 2 ) );
-	} else {
-		return array();
-	}
-
-	return array(
-		'r' => $r,
-		'g' => $g,
-		'b' => $b,
-	);
-}
-
 // Displays custom branding as configured, or using the site icon if set.
 add_action(
 	'login_head',
@@ -69,8 +38,12 @@ add_action(
 		}
 
 		if ( $highlight_color && $highlight_color_hover ) {
-			$rgb                    = hex2rgb( $highlight_color );
-			$highlight_color_shadow = 'rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.8)';
+			$highlight_color_shadow = Shared\Color_Utils::to_css_string(
+				Shared\Color_Utils::set_rgb_opacity(
+					Shared\Color_Utils::hex_to_rgb( $highlight_color ),
+					80
+				)
+			);
 
 			?>
 			<style type="text/css">

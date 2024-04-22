@@ -84,7 +84,7 @@ add_action(
 				Shared\Color_Utils::to_css_string( $colors['highlight_color'] ),
 				Shared\Color_Utils::to_css_string( $colors['secondary_base_color'] ),
 				Shared\Color_Utils::to_css_string( $colors['base_color'] ),
-				Shared\Color_Utils::to_css_string( $colors['secondary_base_color_alt'] ),
+				Shared\Color_Utils::to_css_string( $colors['accent_color'] ),
 			),
 			array(
 				'base'    => $colors['icon_color'],
@@ -93,9 +93,13 @@ add_action(
 			)
 		);
 
-		// If the color scheme is currently in use, make sure to include the corresponding CSS variables.
+		/*
+		 * If the color scheme is currently in use, make sure to include the corresponding CSS variables.
+		 * Also include them when on the profile page, to immediately reflect the correct colors if the user changes
+		 * the color scheme.
+		 */
 		$color_scheme = get_user_option( 'admin_color' );
-		if ( 'brand' === $color_scheme ) {
+		if ( 'brand' === $color_scheme || isset( $GLOBALS['pagenow'] ) && 'profile.php' === $GLOBALS['pagenow'] ) {
 			$inline_css = ':root {';
 			foreach ( $colors as $color_id => $color_value ) {
 				$inline_css .= ' --brand-color-scheme-' . str_replace( '_', '-', $color_id ) . ':';

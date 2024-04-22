@@ -98,8 +98,8 @@ add_action(
 		 * Also include them when on the profile page, to immediately reflect the correct colors if the user changes
 		 * the color scheme.
 		 */
-		$color_scheme = get_user_option( 'admin_color' );
-		if ( 'brand' === $color_scheme || isset( $GLOBALS['pagenow'] ) && 'profile.php' === $GLOBALS['pagenow'] ) {
+		$current_color_scheme = get_user_option( 'admin_color' );
+		if ( 'brand' === $current_color_scheme || isset( $GLOBALS['pagenow'] ) && 'profile.php' === $GLOBALS['pagenow'] ) {
 			$inline_css = ':root {';
 			foreach ( $colors as $color_id => $color_value ) {
 				$inline_css .= ' --brand-color-scheme-' . str_replace( '_', '-', $color_id ) . ':';
@@ -107,6 +107,45 @@ add_action(
 			}
 			$inline_css .= ' }';
 			wp_add_inline_style( 'colors', $inline_css );
+		}
+
+		// If enforced, hook in relevant logic.
+		if ( $config->get( 'admin_color_scheme_enforced', false ) ) {
+			// Remove default color schemes, unless previously explicitly selected.
+			$default_color_schemes = array(
+				'fresh',
+				'light',
+				'blue',
+				'midnight',
+				'sunrise',
+				'ectoplasm',
+				'ocean',
+				'coffee',
+				'modern',
+			);
+			foreach ( $default_color_schemes as $color_scheme ) {
+				if ( $color_scheme !== $current_color_scheme ) {
+					unset( $GLOBALS['_wp_admin_css_colors'][ $color_scheme ] );
+				}
+			}
+
+			// Override the default color scheme.
+			add_filter(
+				'get_user_option_admin_color',
+				static function ( $value ) {
+					return $value ? $value : 'brand';
+				}
+			);
+
+			// Add hidden input for default color scheme to ensure the custom scheme remains selected.
+			add_action(
+				'personal_options',
+				static function () {
+					if ( count( $GLOBALS['_wp_admin_css_colors'] ) <= 1 || ! has_action( 'admin_color_scheme_picker' ) ) {
+						echo '<input type="hidden" name="admin_color" value="brand" />';
+					}
+				}
+			);
 		}
 	}
 );

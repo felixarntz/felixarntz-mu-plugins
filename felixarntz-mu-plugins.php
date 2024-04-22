@@ -64,11 +64,11 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 		 */
 		public static function config(): array {
 			return array(
-				'admin_color_scheme_base_color'         => '#52accc',
-				'admin_color_scheme_icon_color'         => '#e5f8ff',
+				'admin_color_scheme_base_color'         => '#1d2327',
+				'admin_color_scheme_icon_color'         => '#a7aaad',
 				'admin_color_scheme_text_color'         => '#fff',
-				'admin_color_scheme_highlight_color'    => '#096484',
-				'admin_color_scheme_accent_color'       => '#e1a948',
+				'admin_color_scheme_highlight_color'    => '#2271b1',
+				'admin_color_scheme_accent_color'       => '#d63638',
 				'admin_color_scheme_link_color'         => '#0073aa',
 				'admin_color_scheme_enforced'           => false,
 				'allowed_block_types_all'               => array(),

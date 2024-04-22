@@ -4,34 +4,34 @@
  * 2. Replace Sass mix() function calls with native CSS color-mix() equivalent.
  * 3. Update the button() mixin to use $button-color-alt and to remove background color.
  * 4. Update any darken() and lighten() calls on $highlight-color to use $highlight-color-alt.
- * 5. Run: sass ./web/wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins/admin-css-color-scheme/colors.scss > ./web/wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins/admin-css-color-scheme/colors.css
- * 6. Run: cp ./web/wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins/admin-css-color-scheme/colors.css ./web/wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins/admin-css-color-scheme/colors-rtl.css
+ * 5. Run: sass ./felixarntz-mu-plugins/admin-css-color-scheme/colors.scss > ./felixarntz-mu-plugins/admin-css-color-scheme/colors.css
+ * 6. Run: cp ./felixarntz-mu-plugins/admin-css-color-scheme/colors.css ./felixarntz-mu-plugins/admin-css-color-scheme/colors-rtl.css
  */
 
 $scheme-name: "brand";
-$base-color: var(--brand-color-scheme-base-color, #52accc);
-$icon-color: var(--brand-color-scheme-icon-color, #e5f8ff);
+$base-color: var(--brand-color-scheme-base-color, #1d2327);
+$icon-color: var(--brand-color-scheme-icon-color, #a7aaad);
 $text-color: var(--brand-color-scheme-text-color, #fff);
-$highlight-color: var(--brand-color-scheme-highlight-color, #096484);
-$highlight-color-alt: var(--brand-color-scheme-highlight-color-alt, #064054); // Darkened by 10%.
+$highlight-color: var(--brand-color-scheme-highlight-color, #2271b1);
+$highlight-color-alt: var(--brand-color-scheme-highlight-color-alt, #0a4b78); // Darkened by 10%.
 
 $link: var(--brand-color-scheme-link-color, #0073aa);
 $link-focus: var(--brand-color-scheme-link-color-alt, #0096dd); // Lightened by 10%.
 
-$notification-color: var(--brand-color-scheme-accent-color, #e1a948);
-$button-color: var(--brand-color-scheme-accent-color, #e1a948);
-$button-color-alt: var(--brand-color-scheme-accent-color-alt, #e8be74); // Lightened by 10%.
+$notification-color: var(--brand-color-scheme-accent-color, #d63638);
+$button-color: var(--brand-color-scheme-accent-color, #d63638);
+$button-color-alt: var(--brand-color-scheme-accent-color-alt, #da4a4c); // Lightened by 10%.
 
 $menu-text: $text-color;
 $menu-icon: $icon-color;
 $menu-background: $base-color;
-$adminbar-avatar-frame: var(--brand-color-scheme-base-color-alt, #6eb9d4); // Lightened by 7%.
-$adminbar-input-background: var(--brand-color-scheme-base-color-alt, #6eb9d4); // Lightened by 7%.
+$adminbar-avatar-frame: var(--brand-color-scheme-base-color-alt, #2c3338); // Lightened by 7%.
+$adminbar-input-background: var(--brand-color-scheme-base-color-alt, #2c3338); // Lightened by 7%.
 
-$menu-submenu-text: var(--brand-color-scheme-secondary-text-color, #e2ecf1);
+$menu-submenu-text: var(--brand-color-scheme-secondary-text-color, #c3c4c7);
 $menu-submenu-focus-text: var(--brand-color-scheme-text-color, #fff);
-$menu-submenu-background: var(--brand-color-scheme-secondary-base-color, #4796b3);
-$menu-submenu-background-alt: var(--brand-color-scheme-secondary-base-color-alt, #74b6ce); // Lightened and desaturated by 7%.
+$menu-submenu-background: var(--brand-color-scheme-secondary-base-color, #2c3338);
+$menu-submenu-background-alt: var(--brand-color-scheme-secondary-base-color-alt, #3c434a); // Lightened and desaturated by 7%.
 
 $dashboard-icon-background: $highlight-color;
 

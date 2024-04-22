@@ -27,11 +27,11 @@ add_action(
 
 		// Required colors.
 		$colors = array(
-			'base_color'      => $config->get( 'admin_color_scheme_base_color', '#52accc' ),
-			'icon_color'      => $config->get( 'admin_color_scheme_icon_color', '#e5f8ff' ),
+			'base_color'      => $config->get( 'admin_color_scheme_base_color', '#1d2327' ),
+			'icon_color'      => $config->get( 'admin_color_scheme_icon_color', '#a7aaad' ),
 			'text_color'      => $config->get( 'admin_color_scheme_text_color', '#fff' ),
-			'highlight_color' => $config->get( 'admin_color_scheme_highlight_color', '#096484' ),
-			'accent_color'    => $config->get( 'admin_color_scheme_accent_color', '#e1a948' ),
+			'highlight_color' => $config->get( 'admin_color_scheme_highlight_color', '#2271b1' ),
+			'accent_color'    => $config->get( 'admin_color_scheme_accent_color', '#d63638' ),
 			'link_color'      => $config->get( 'admin_color_scheme_link_color', '#0073aa' ),
 		);
 

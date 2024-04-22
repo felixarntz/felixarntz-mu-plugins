@@ -4,8 +4,9 @@
  * 2. Replace Sass mix() function calls with native CSS color-mix() equivalent.
  * 3. Update the button() mixin to use $button-color-alt and to remove background color.
  * 4. Update any darken() and lighten() calls on $highlight-color to use $highlight-color-alt.
- * 5. Run: sass ./felixarntz-mu-plugins/admin-css-color-scheme/colors.scss > ./felixarntz-mu-plugins/admin-css-color-scheme/colors.css
- * 6. Run: cp ./felixarntz-mu-plugins/admin-css-color-scheme/colors.css ./felixarntz-mu-plugins/admin-css-color-scheme/colors-rtl.css
+ * 5. Update the button mixin to also specify the color on hover and focus as otherwise it gets overridden.
+ * 6. Run: sass ./felixarntz-mu-plugins/admin-css-color-scheme/colors.scss > ./felixarntz-mu-plugins/admin-css-color-scheme/colors.css
+ * 7. Run: cp ./felixarntz-mu-plugins/admin-css-color-scheme/colors.css ./felixarntz-mu-plugins/admin-css-color-scheme/colors-rtl.css
  */
 
 $scheme-name: "brand";

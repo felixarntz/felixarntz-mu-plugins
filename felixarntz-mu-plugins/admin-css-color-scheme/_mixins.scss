@@ -9,6 +9,7 @@
 
 	&:hover,
 	&:focus {
+		background: $button-color;
 		border-color: $button-color-alt;
 		color: $button-text-color;
 	}

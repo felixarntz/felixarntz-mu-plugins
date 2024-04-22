@@ -121,16 +121,22 @@ add_action(
 			return $new_menu_slug;
 		};
 
-		$site_domain_path_jetpack_style = rtrim(
-			str_replace(
-				'/',
-				'::',
-				preg_replace( '#^.*?://#', '', home_url() )
-			),
-			':'
-		);
-		$jetpack_subscribers_url        = esc_url(
-			'https://jetpack.com/redirect/?source=jetpack-menu-calypso-subscribers&site=' . $site_domain_path_jetpack_style
+		$jetpack_site_id = false;
+		if ( class_exists( 'Automattic\Jetpack\Connection\Manager' ) ) {
+			$jetpack_site_id = \Automattic\Jetpack\Connection\Manager::get_site_id( true );
+		}
+		if ( ! $jetpack_site_id ) {
+			$jetpack_site_id = rtrim(
+				str_replace(
+					'/',
+					'::',
+					preg_replace( '#^.*?://#', '', home_url() )
+				),
+				':'
+			);
+		}
+		$jetpack_subscribers_url = esc_url(
+			'https://jetpack.com/redirect/?source=jetpack-menu-calypso-subscribers&site=' . $jetpack_site_id
 		);
 
 		$move_plugin_menus = array_merge(

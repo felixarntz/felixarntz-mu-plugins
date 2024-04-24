@@ -74,6 +74,26 @@ add_action(
 		}
 		$colors['secondary_base_color_alt'] = Shared\Color_Utils::desaturate_hsl( Shared\Color_Utils::lighten_hsl( $colors['secondary_base_color_alt'], 7 ), 7 );
 
+		// Block editor colors (not used in color scheme CSS file).
+		$block_editor_colors['color']                = Shared\Color_Utils::hex_to_hsl( $colors['accent_color'] );
+		$block_editor_colors['color-darker-10']      = Shared\Color_Utils::darken_hsl( $block_editor_colors['color'], 5 );
+		$block_editor_colors['color-darker-20']      = Shared\Color_Utils::darken_hsl( $block_editor_colors['color'], 10 );
+		$block_editor_colors['color--rgb']           = Shared\Color_Utils::hsl_to_rgb( $block_editor_colors['color'] );
+		$block_editor_colors['color-darker-10--rgb'] = Shared\Color_Utils::hsl_to_rgb( $block_editor_colors['color-darker-10'] );
+		$block_editor_colors['color-darker-20--rgb'] = Shared\Color_Utils::hsl_to_rgb( $block_editor_colors['color-darker-20'] );
+
+		// Turn all HSL colors back into HEX colors as they were only modified for color processing.
+		foreach ( $colors as $color_id => $color_value ) {
+			if ( is_array( $color_value ) && isset( $color_value['h'] ) ) {
+				$colors[ $color_id ] = Shared\Color_Utils::hsl_to_hex( $color_value );
+			}
+		}
+		foreach ( $block_editor_colors as $color_var => $color_value ) {
+			if ( is_array( $color_value ) && isset( $color_value['h'] ) ) {
+				$block_editor_colors[ $color_var ] = Shared\Color_Utils::hsl_to_hex( $color_value );
+			}
+		}
+
 		$suffix = is_rtl() ? '-rtl' : '';
 
 		wp_admin_css_color(
@@ -103,6 +123,10 @@ add_action(
 			$inline_css = ':root {';
 			foreach ( $colors as $color_id => $color_value ) {
 				$inline_css .= ' --brand-color-scheme-' . str_replace( '_', '-', $color_id ) . ':';
+				$inline_css .= ' ' . esc_attr( Shared\Color_Utils::to_css_string( $color_value ) ) . ';';
+			}
+			foreach ( $block_editor_colors as $color_var => $color_value ) {
+				$inline_css .= ' --wp-admin-theme-' . $color_var . ':';
 				$inline_css .= ' ' . esc_attr( Shared\Color_Utils::to_css_string( $color_value ) ) . ';';
 			}
 			$inline_css .= ' }';

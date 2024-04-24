@@ -47,10 +47,24 @@ class Color_Utils {
 	}
 
 	/**
+	 * Converts an RGB array to a HEX value.
+	 *
+	 * @param array $color Array containing keys 'r', 'g', 'b', with integer value. If an 'a' key is present, it will be stripped.
+	 * @return string Hex color, in 3- or 6-digit hexadecimal form.
+	 */
+	public static function rgb_to_hex( array $color ): string {
+		$result  = str_pad( dechex( $color['r'] ), 2, '0', STR_PAD_LEFT );
+		$result .= str_pad( dechex( $color['g'] ), 2, '0', STR_PAD_LEFT );
+		$result .= str_pad( dechex( $color['b'] ), 2, '0', STR_PAD_LEFT );
+
+		return $result;
+	}
+
+	/**
 	 * Converts an RGB array to an HSL array.
 	 *
 	 * @param array $color Array containing keys 'r', 'g', 'b', with integer values, and optionally 'a' with a float.
-	 * @return array Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @return array Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 */
 	public static function rgb_to_hsl( array $color ): array {
 		$r = $color['r'] / 255;
@@ -77,6 +91,9 @@ class Color_Utils {
 			$hue *= 60;
 			$hue  = fmod( $hue, 360 );
 		}
+		if ( $hue < 0 ) {
+			$hue += 360;
+		}
 
 		// Calculate lightness.
 		$lightness = ( $cmax + $cmin ) / 2;
@@ -90,12 +107,73 @@ class Color_Utils {
 
 		$result = array(
 			'h' => (int) round( $hue ),
-			's' => (int) round( $saturation ),
-			'l' => (int) round( $lightness * 100 ),
+			's' => round( $saturation, 1 ),
+			'l' => round( $lightness * 100, 1 ),
 		);
+
 		if ( isset( $color['a'] ) ) {
 			$result['a'] = $color['a'];
 		}
+
+		return $result;
+	}
+
+	/**
+	 * Converts an HSL array to an RGB array.
+	 *
+	 * @param array $color Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
+	 * @return array Array containing keys 'r', 'g', 'b', with integer values, and optionally 'a' with a float.
+	 */
+	public static function hsl_to_rgb( array $color ): array {
+		$c = ( 1.0 - abs( $color['l'] / 100 * 2 - 1.0 ) ) * $color['s'] / 100;
+		$x = $c * ( 1 - abs( fmod( $color['h'] / 60, 2 ) - 1 ) );
+		$m = $color['l'] / 100 - $c / 2;
+
+		if ( $color['h'] < 60 ) {
+			$result = array(
+				'r' => $c + $m,
+				'g' => $x + $m,
+				'b' => $m,
+			);
+		} elseif ( $color['h'] < 120 ) {
+			$result = array(
+				'r' => $x + $m,
+				'g' => $c + $m,
+				'b' => $m,
+			);
+		} elseif ( $color['h'] < 180 ) {
+			$result = array(
+				'r' => $m,
+				'g' => $c + $m,
+				'b' => $x + $m,
+			);
+		} elseif ( $color['h'] < 240 ) {
+			$result = array(
+				'r' => $m,
+				'g' => $x + $m,
+				'b' => $c + $m,
+			);
+		} elseif ( $color['h'] < 300 ) {
+			$result = array(
+				'r' => $x + $m,
+				'g' => $m,
+				'b' => $c + $m,
+			);
+		} else {
+			$result = array(
+				'r' => $c + $m,
+				'g' => $m,
+				'b' => $x + $m,
+			);
+		}
+
+		foreach ( $result as $key => $value ) {
+			$result[ $key ] = (int) round( $value * 255 );
+		}
+		if ( isset( $color['a'] ) ) {
+			$result['a'] = $color['a'];
+		}
+
 		return $result;
 	}
 
@@ -103,10 +181,20 @@ class Color_Utils {
 	 * Converts a HEX value to HSL.
 	 *
 	 * @param string $color The original color, in 3- or 6-digit hexadecimal form.
-	 * @return array Array containing keys 'h', 's', 'l', with integer values.
+	 * @return array Array containing keys 'h' (integer), 's', 'l' (float).
 	 */
 	public static function hex_to_hsl( string $color ): array {
 		return self::rgb_to_hsl( self::hex_to_rgb( $color ) );
+	}
+
+	/**
+	 * Converts an HSL array to a HEX value.
+	 *
+	 * @param array $color Array containing keys 'h' (integer), 's', 'l' (float). If an 'a' key is present, it will be stripped.
+	 * @return string Hex color, in 3- or 6-digit hexadecimal form.
+	 */
+	public static function hsl_to_hex( array $color ): string {
+		return self::rgb_to_hex( self::hsl_to_rgb( $color ) );
 	}
 
 	/**
@@ -124,9 +212,9 @@ class Color_Utils {
 	/**
 	 * Lightens an HSL color.
 	 *
-	 * @param array $color   Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @param array $color   Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 * @param int   $percent Percentage value between 0 and 100.
-	 * @return array Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @return array Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 */
 	public static function lighten_hsl( array $color, int $percent ): array {
 		if ( $color['l'] + $percent > 100 ) {
@@ -140,9 +228,9 @@ class Color_Utils {
 	/**
 	 * Darkens an HSL color.
 	 *
-	 * @param array $color   Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @param array $color   Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 * @param int   $percent Percentage value between 0 and 100.
-	 * @return array Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @return array Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 */
 	public static function darken_hsl( array $color, int $percent ): array {
 		if ( $color['l'] - $percent < 0 ) {
@@ -156,9 +244,9 @@ class Color_Utils {
 	/**
 	 * Saturates an HSL color.
 	 *
-	 * @param array $color   Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @param array $color   Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 * @param int   $percent Percentage value between 0 and 100.
-	 * @return array Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @return array Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 */
 	public static function saturate_hsl( array $color, int $percent ): array {
 		if ( $color['s'] + $percent > 100 ) {
@@ -172,9 +260,9 @@ class Color_Utils {
 	/**
 	 * Desaturates an HSL color.
 	 *
-	 * @param array $color   Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @param array $color   Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 * @param int   $percent Percentage value between 0 and 100.
-	 * @return array Array containing keys 'h', 's', 'l', with integer values, and optionally 'a' with a float.
+	 * @return array Array containing keys 'h' (integer), 's', 'l' (float), and optionally 'a' (float).
 	 */
 	public static function desaturate_hsl( array $color, int $percent ): array {
 		if ( $color['s'] - $percent < 0 ) {

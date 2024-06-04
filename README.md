@@ -46,36 +46,76 @@ To apply updates to the project later, if you use Composer, a simple `composer u
 
 Each feature is implemented within a single MU plugin file. Note that the features definitely vary in how opinionated there are, so please use and adjust to taste. Even I myself am not using all of these features for every site, so I encourage you to pick and choose what works for you.
 
+The following tables list all features available as part of this project, grouped by what kind of feature it is.
+
+### Admin UI enhancements
+
 | MU plugin feature | Description | Config variables |
 | ----------------- | ----------- | ---------------- |
 | [Add Admin Color Scheme Branding](felixarntz-mu-plugins/add-admin-color-scheme-branding.php) | Adds an admin color scheme reflecting the specific brand colors. | `admin_color_scheme_base_color`<br>`admin_color_scheme_icon_color`<br>`admin_color_scheme_text_color`<br>`admin_color_scheme_highlight_color`<br>`admin_color_scheme_accent_color`<br>`admin_color_scheme_link_color`<br>`admin_color_scheme_enforced` |
-| [Add Client Role](felixarntz-mu-plugins/add-client-role.php) | Adds a role for clients with additional capabilities than editors, but not quite admin. | `client_role_display_name`<br>`client_role_additional_caps` |
-| [Add Edit Layout Capability](felixarntz-mu-plugins/add-edit-layout-capability.php) | Adds a dedicated capability for editing layout in the block editor. | |
 | [Add Login Branding](felixarntz-mu-plugins/add-login-branding.php) | Adds site specific branding to the login page. | `login_highlight_color`<br>`login_highlight_color_hover`<br>`login_header_image_url`<br>`login_header_image_size` |
-| [Bulk Edit Defer Term Counting](felixarntz-mu-plugins/bulk-edit-defer-term-counting.php) | Defers term counting when bulk editing to avoid slow queries for each post updated. | |
 | [Clean Plugin Menus](felixarntz-mu-plugins/clean-plugin-menus.php) | Cleans up top level menu items from plugins in WP Admin. | `feedback_menu_title`<br>`insights_menu_title`<br>`move_plugin_menus` |
-| [Disable Auto Updates](felixarntz-mu-plugins/disable-auto-updates.php) | Disables all auto updates. | |
-| [Disable Block Editor Fullscreen Mode](felixarntz-mu-plugins/disable-block-editor-fullscreen-mode.php) | Disables the block editor's full screen mode by default. | |
-| [Disable Comments](felixarntz-mu-plugins/disable-comments.php) | Disables comments. | |
-| [Disable Custom Block Colors Gradients Font Sizes](felixarntz-mu-plugins/disable-custom-block-colors-gradients-font-sizes.php) | Disables custom colors, custom gradients, custom font sizes etc. for the block editor to enforce a uniform style. | |
-| [Disable Emoji](felixarntz-mu-plugins/disable-emoji.php) | Removes emoji script and related logic. | |
-| [Disable Legacy CSS](felixarntz-mu-plugins/disable-legacy-css.php) | Removes legacy CSS from certain widgets and shortcodes from wp_head output. | |
-| [Disable Non Production Indexing](felixarntz-mu-plugins/disable-non-production-indexing.php) | Ensures that the site is not indexable in a non-production environment. | |
-| [Disable Pages](felixarntz-mu-plugins/disable-pages.php) | Disables modifying pages. | |
-| [Disable Pingbacks](felixarntz-mu-plugins/disable-pingbacks.php) | Disables pingbacks and trackbacks. | |
-| [Disable Post Tags](felixarntz-mu-plugins/disable-post-tags.php) | Disables using and assigning tags for posts (and other post types). | |
-| [Disable RSS Links](felixarntz-mu-plugins/disable-rss-links.php) | Removes RSS feed links from wp_head output. | |
-| [Disable XML-RPC](felixarntz-mu-plugins/disable-xmlrpc.php) | Disables XML-RPC access to the site. | |
 | [Fix Tools Menu Capability](felixarntz-mu-plugins/fix-tools-menu-capability.php) | Ensures that the Tools menu is only shown if the user has the capabilities to do something with it. | |
 | [Hide Dashboard](felixarntz-mu-plugins/hide-dashboard.php) | Hides the WordPress dashboard if no additional submenu pages are added to it. | `replace_dashboard_startup_screen` |
 | [Hide Profile Menu](felixarntz-mu-plugins/hide-profile-menu.php) | Hides the Profile submenu item and, if applicable, menu item in favor of link in account menu. | |
-| [Make Site Private](felixarntz-mu-plugins/make-site-private.php) | Makes the entire site private so that only logged-in users can see the content. | |
 | [Modernize Account Menu Style](felixarntz-mu-plugins/modernize-account-menu-style.php) | Modifies the styling of the account menu in the admin bar to display a larger circled avatar image. | |
+| [Prevent Custom Menu Order](felixarntz-mu-plugins/prevent-custom-menu-order.php) | Forces the custom menu order filter to disabled which tends to be used by plugins to put themselves to the top of the admin menu. | |
+| [Remove Add New Submenu Links](felixarntz-mu-plugins/remove-add-new-submenu-links.php) | Removes all the Add New submenu items in the admin. | |
+| [Remove Dashboard Widgets](felixarntz-mu-plugins/remove-dashboard-widgets.php) | Removes all default widgets from the WordPress dashboard. | `remove_dashboard_widgets` |
+| [Simplify Themes Menu](felixarntz-mu-plugins/simplify-themes-menu.php) | Simplifies the Themes Menu to be purely about editing if the current user cannot switch themes. | |
+| [Use Content Menu](felixarntz-mu-plugins/use-content-menu.php) | Moves all post type admin menus into a single Content menu. | `indent_content_menu_taxonomies` |
+
+### Block editor modifications
+
+| MU plugin feature | Description | Config variables |
+| ----------------- | ----------- | ---------------- |
+| [Disable Block Editor Fullscreen Mode](felixarntz-mu-plugins/disable-block-editor-fullscreen-mode.php) | Disables the block editor's full screen mode by default. | |
+| [Disable Custom Block Colors Gradients Font Sizes](felixarntz-mu-plugins/disable-custom-block-colors-gradients-font-sizes.php) | Disables custom colors, custom gradients, custom font sizes etc. for the block editor to enforce a uniform style. | |
 | [Modify Allowed Block Types](felixarntz-mu-plugins/modify-allowed-block-types.php) | Modifies the block types allowed in the block editor. | `allowed_block_types_all`<br>`allowed_block_types_{$context}`<br>`allowed_block_types_post_type_{$post_type}`<br>`disallowed_block_types_all`<br>`disallowed_block_types_{$context}`<br>`disallowed_block_types_post_type_{$post_type}` |
-| [Modify REST Root](felixarntz-mu-plugins/modify-rest-root.php) | Modifies the REST API root to a different one, by default using api. | `rest_root` |
+
+### Disabling core functionality
+
+| MU plugin feature | Description | Config variables |
+| ----------------- | ----------- | ---------------- |
+| [Disable Auto Updates](felixarntz-mu-plugins/disable-auto-updates.php) | Disables all auto updates. | |
+| [Disable Comments](felixarntz-mu-plugins/disable-comments.php) | Disables comments. | |
+| [Disable Pages](felixarntz-mu-plugins/disable-pages.php) | Disables modifying pages. | |
+| [Disable Pingbacks](felixarntz-mu-plugins/disable-pingbacks.php) | Disables pingbacks and trackbacks. | |
+| [Disable Post Tags](felixarntz-mu-plugins/disable-post-tags.php) | Disables using and assigning tags for posts (and other post types). | |
+| [Disable XML-RPC](felixarntz-mu-plugins/disable-xmlrpc.php) | Disables XML-RPC access to the site. | |
+
+### Cleanup of `wp_head`
+
+| MU plugin feature | Description | Config variables |
+| ----------------- | ----------- | ---------------- |
+| [Disable Emoji](felixarntz-mu-plugins/disable-emoji.php) | Removes emoji script and related logic. | |
+| [Disable Legacy CSS](felixarntz-mu-plugins/disable-legacy-css.php) | Removes legacy CSS from certain widgets and shortcodes from wp_head output. | |
+| [Disable RSS Links](felixarntz-mu-plugins/disable-rss-links.php) | Removes RSS feed links from wp_head output. | |
 | [Obscure WP Head](felixarntz-mu-plugins/obscure-wp-head.php) | Removes useless WordPress indicators from wp_head output. | `remove_wp_head_rest_references`<br>`remove_wp_head_oembed_references` |
+
+### User capabilities / permissions
+
+| MU plugin feature | Description | Config variables |
+| ----------------- | ----------- | ---------------- |
+| [Add Client Role](felixarntz-mu-plugins/add-client-role.php) | Adds a role for clients with additional capabilities than editors, but not quite admin. | `client_role_display_name`<br>`client_role_additional_caps` |
+| [Add Edit Layout Capability](felixarntz-mu-plugins/add-edit-layout-capability.php) | Adds a dedicated capability for editing layout in the block editor. | |
+
+### Performance optimization
+
+| MU plugin feature | Description | Config variables |
+| ----------------- | ----------- | ---------------- |
+| [Bulk Edit Defer Term Counting](felixarntz-mu-plugins/bulk-edit-defer-term-counting.php) | Defers term counting when bulk editing to avoid slow queries for each post updated. | |
 | [Optimize Last Post Modified](felixarntz-mu-plugins/optimize-lastpostmodified.php) | Optimizes the logic to get last post modified to avoid database queries for better performance. | |
 | [Optimize Meta Table Schema](felixarntz-mu-plugins/optimize-meta-table-schema.php) | Optimizes performance of the meta database tables by adding an index to the meta_value field. | |
+
+### Miscellaneous
+
+| MU plugin feature | Description | Config variables |
+| ----------------- | ----------- | ---------------- |
+| [Disable Non Production Indexing](felixarntz-mu-plugins/disable-non-production-indexing.php) | Ensures that the site is not indexable in a non-production environment. | |
+| [Make Site Private](felixarntz-mu-plugins/make-site-private.php) | Makes the entire site private so that only logged-in users can see the content. | |
+| [Modify REST Root](felixarntz-mu-plugins/modify-rest-root.php) | Modifies the REST API root to a different one, by default using api. | `rest_root` |
+| [Use Ambiguous Login Error](felixarntz-mu-plugins/use-ambiguous-login-error.php) | Modifies the error messages for a failed login attempt to be more ambiguous. | |
 
 ## Alternative usage
 

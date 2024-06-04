@@ -10,7 +10,9 @@ My collection of MU plugins in individual files within a subdirectory, fully con
 
 ## Context
 
-I have been using MU plugins on my personal site for many years, and I thought some may find them useful as well. I am aware that several individuals and companies have open-sourced some of their MU plugins, but I wanted to go a step further than that by making them actually reusable beyond just my own specific site needs. So with this repository I came up with an approach that allows you to use any of my MU plugins in a way that allows you to customize them and even apply updates to them, without having to manually copy files every time.
+I have been using MU plugins on my personal site for many years, and I thought some may find them useful as well. I am aware that several individuals and companies have open-sourced some of their MU plugins, but I wanted to go a step further than that by making them actually reusable beyond just my own specific site needs.
+
+With this repository I came up with an approach that allows you to use any of my MU plugins in a way that allows you to customize them and even apply updates to them, without having to manually copy files every time.
 
 ## Project structure
 
@@ -38,6 +40,19 @@ Or, if you prefer to go fully manual, you can download a ZIP of the repository a
 After installing the project, you need to copy the `wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins.php` file one level up, i.e. to `wp-content/mu-plugins/felixarntz-mu-plugins.php`. Afterwards, you should edit that file to customize which features you want to load and to configure them, as you most certainly don't want to use all of them without tweaking their behavior to your site's needs. Please see [the class's inline documentation](felixarntz-mu-plugins.php) for how to make those modifications.
 
 To apply updates to the project later, if you use Composer, a simple `composer update` will do it. Otherwise, you need to update the `wp-content/mu-plugins/felixarntz-mu-plugins` directory with the latest version, either via `git pull` from within the directory, or by downloading the latest ZIP and replacing the directory with its contents.
+
+## Included features
+
+Each feature is implemented within a single MU plugin file. Note that the features definitely vary in how opinionated there are, so please use and adjust to taste.
+
+| MU plugin feature | Description | Config variables |
+| ----------------- | ----------- | ---------------- |
+| [Add Admin Color Scheme Branding](felixarntz-mu-plugins/add-admin-color-scheme-branding.php) | Adds an admin color scheme reflecting the specific brand colors. | `admin_color_scheme_base_color`, `admin_color_scheme_icon_color`, `admin_color_scheme_text_color`, `admin_color_scheme_highlight_color`, `admin_color_scheme_accent_color`, `admin_color_scheme_link_color`, `admin_color_scheme_enforced` |
+| [Add Client Role](felixarntz-mu-plugins/add-client-role.php) | Adds a role for clients with additional capabilities than editors, but not quite admin. | `client_role_display_name`, `client_role_additional_caps` |
+| [Add Edit Layout Capability](felixarntz-mu-plugins/add-edit-layout-capability.php) | Adds a dedicated capability for editing layout in the block editor. | |
+| [Add Login Branding](felixarntz-mu-plugins/add-login-branding.php) | Adds site specific branding to the login page. | `login_highlight_color`, `login_highlight_color_hover`, `login_header_image_url`, `login_header_image_size` |
+| [Bulk Edit Defer Term Counting](felixarntz-mu-plugins/bulk-edit-defer-term-counting.php) | Defers term counting when bulk editing to avoid slow queries for each post updated. | |
+| [Clean Plugin Menus](felixarntz-mu-plugins/clean-plugin-menus.php) | Cleans up top level menu items from plugins in WP Admin. | `feedback_menu_title`, `insights_menu_title`, `move_plugin_menus` |
 
 ## Alternative usage
 

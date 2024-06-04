@@ -24,6 +24,8 @@ At a high level, the project is made up by three components:
 
 ## Quick start
 
+### Installation
+
 There are several alternative ways to use this project, depending on your needs and flexibility. In any case, the project needs to be placed in your `wp-content/mu-plugins` directory. If your site doesn't have such a directory yet, you can simply create it.
 
 If you use [Composer](https://getcomposer.org/) to manage your site's dependencies:
@@ -38,7 +40,21 @@ git clone https://github.com/felixarntz/felixarntz-mu-plugins.git wp-content/mu-
 
 Or, if you prefer to go fully manual, you can download a ZIP of the repository and extract it into your `wp-content/mu-plugins` directory.
 
-After installing the project, you need to copy the `wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins.php` file one level up, i.e. to `wp-content/mu-plugins/felixarntz-mu-plugins.php`. Afterwards, you should edit that file to customize which features you want to load and to configure them, as you most certainly don't want to use all of them without tweaking their behavior to your site's needs. Please see [the class's inline documentation](felixarntz-mu-plugins.php) for how to make those modifications.
+After installing the project, you need to copy the `wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins.php` file one level up, i.e. to `wp-content/mu-plugins/felixarntz-mu-plugins.php`. Afterwards, you should edit that file to customize which features you want to load and to configure them, as you most certainly don't want to use all of them without tweaking their behavior to your site's needs.
+
+### Configuration
+
+The project includes a many features, enhancements, and tweaks, some of which are more opinionated than others. You'll most certainly want to customize which features are loaded for your site and how they are configured. You can do so by tweaking your own copy of the loader file `wp-content/mu-plugins/felixarntz-mu-plugins.php`.
+
+The class in the file contains two arrays that are intended to be modified:
+* The indexed array returned by the `Loader::files_allowlist()` method should contain the list of MU plugin PHP file names (i.e. features) which should be loaded.
+* The associative array returned by the `Loader::config()` method should contain your preferred configuration for the features.
+
+Both methods are initially populated with all the available MU plugin files and configuration variables respectively, so that it's easy to see what is available. Since the arrays are returned by methods, feel free to use simple conditional logic to contextually set different configurations. For example, if you're using this project in a WordPress Multisite, you could return different arrays depending on which site is being accessed ([`get_site()`](https://developer.wordpress.org/reference/functions/get_site/)).
+
+Please see [the class's inline documentation](felixarntz-mu-plugins.php) for additional information on how to make those modifications.
+
+### Updates
 
 To apply updates to the project later, if you use Composer, a simple `composer update` will do it. Otherwise, you need to update the `wp-content/mu-plugins/felixarntz-mu-plugins` directory with the latest version, either via `git pull` from within the directory, or by downloading the latest ZIP and replacing the directory with its contents.
 

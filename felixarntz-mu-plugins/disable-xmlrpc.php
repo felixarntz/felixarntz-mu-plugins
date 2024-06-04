@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Disable XMLRPC
+ * Plugin Name: Disable XML-RPC
  * Plugin URI: https://github.com/felixarntz/felixarntz-mu-plugins
  * Description: Disables XML-RPC access to the site.
  * Author: Felix Arntz

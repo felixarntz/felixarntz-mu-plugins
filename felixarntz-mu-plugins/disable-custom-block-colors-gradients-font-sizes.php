@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Disable Custom Block Editor Features
+ * Plugin Name: Disable Custom Block Colors Gradients Font Sizes
  * Plugin URI: https://github.com/felixarntz/felixarntz-mu-plugins
  * Description: Disables custom colors, custom gradients, custom font sizes etc. for the block editor to enforce a uniform style.
  * Author: Felix Arntz

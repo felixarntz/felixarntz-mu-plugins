@@ -40,7 +40,7 @@ git clone https://github.com/felixarntz/felixarntz-mu-plugins.git wp-content/mu-
 
 Or, if you prefer to go fully manual, you can download a ZIP of the repository and extract it into your `wp-content/mu-plugins` directory.
 
-After installing the project, you need to copy the `wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins.php` file one level up, i.e. to `wp-content/mu-plugins/felixarntz-mu-plugins.php`. Afterwards, you should edit that file to customize which features you want to load and to configure them, as you most certainly don't want to use all of them without tweaking their behavior to your site's needs.
+After installing the project, you need to copy the `wp-content/mu-plugins/felixarntz-mu-plugins/felixarntz-mu-plugins.php` file one level up, i.e. to `wp-content/mu-plugins/felixarntz-mu-plugins.php`. Afterwards, you need to edit your copy of the file, specifically the [`Loader::FILES_DIR` constant](felixarntz-mu-plugins.php#L38), to point to the correct location of the `felixarntz-mu-plugins` directory containing the individual MU plugin files. You should furthermore edit that file to customize which features you want to load and to configure them (see next section).
 
 ### Configuration
 

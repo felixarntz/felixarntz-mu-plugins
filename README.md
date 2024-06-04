@@ -5,8 +5,9 @@ My collection of MU plugins in individual files within a subdirectory, fully con
 1. [Context](#context)
 2. [Project structure](#project-structure)
 3. [Quick start](#quick-start)
-4. [Alternative usage](#alternative-usage)
-5. [License](#license)
+4. [Included features](#included-features)
+5. [Alternative usage](#alternative-usage)
+6. [License](#license)
 
 ## Context
 
@@ -47,12 +48,12 @@ Each feature is implemented within a single MU plugin file. Note that the featur
 
 | MU plugin feature | Description | Config variables |
 | ----------------- | ----------- | ---------------- |
-| [Add Admin Color Scheme Branding](felixarntz-mu-plugins/add-admin-color-scheme-branding.php) | Adds an admin color scheme reflecting the specific brand colors. | `admin_color_scheme_base_color`, `admin_color_scheme_icon_color`, `admin_color_scheme_text_color`, `admin_color_scheme_highlight_color`, `admin_color_scheme_accent_color`, `admin_color_scheme_link_color`, `admin_color_scheme_enforced` |
-| [Add Client Role](felixarntz-mu-plugins/add-client-role.php) | Adds a role for clients with additional capabilities than editors, but not quite admin. | `client_role_display_name`, `client_role_additional_caps` |
+| [Add Admin Color Scheme Branding](felixarntz-mu-plugins/add-admin-color-scheme-branding.php) | Adds an admin color scheme reflecting the specific brand colors. | `admin_color_scheme_base_color`<br>`admin_color_scheme_icon_color`<br>`admin_color_scheme_text_color`<br>`admin_color_scheme_highlight_color`<br>`admin_color_scheme_accent_color`<br>`admin_color_scheme_link_color`<br>`admin_color_scheme_enforced` |
+| [Add Client Role](felixarntz-mu-plugins/add-client-role.php) | Adds a role for clients with additional capabilities than editors, but not quite admin. | `client_role_display_name`<br>`client_role_additional_caps` |
 | [Add Edit Layout Capability](felixarntz-mu-plugins/add-edit-layout-capability.php) | Adds a dedicated capability for editing layout in the block editor. | |
-| [Add Login Branding](felixarntz-mu-plugins/add-login-branding.php) | Adds site specific branding to the login page. | `login_highlight_color`, `login_highlight_color_hover`, `login_header_image_url`, `login_header_image_size` |
+| [Add Login Branding](felixarntz-mu-plugins/add-login-branding.php) | Adds site specific branding to the login page. | `login_highlight_color`<br>`login_highlight_color_hover`<br>`login_header_image_url`<br>`login_header_image_size` |
 | [Bulk Edit Defer Term Counting](felixarntz-mu-plugins/bulk-edit-defer-term-counting.php) | Defers term counting when bulk editing to avoid slow queries for each post updated. | |
-| [Clean Plugin Menus](felixarntz-mu-plugins/clean-plugin-menus.php) | Cleans up top level menu items from plugins in WP Admin. | `feedback_menu_title`, `insights_menu_title`, `move_plugin_menus` |
+| [Clean Plugin Menus](felixarntz-mu-plugins/clean-plugin-menus.php) | Cleans up top level menu items from plugins in WP Admin. | `feedback_menu_title`<br>`insights_menu_title`<br>`move_plugin_menus` |
 
 ## Alternative usage
 

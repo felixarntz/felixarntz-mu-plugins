@@ -11,7 +11,7 @@ My collection of MU plugins in individual files within a subdirectory, fully con
 
 ## Context
 
-I have been using MU plugins on my personal site for many years, and I thought some may find them useful as well. I am aware that several individuals and companies have open-sourced some of their MU plugins, but I wanted to go a step further than that by making them actually reusable beyond just my own specific site needs.
+I have been using MU plugins on my personal sites for many years, and I thought some may find them useful as well. I am aware that several individuals and companies have open-sourced some of their MU plugins, but I wanted to go a step further than that by making them actually reusable beyond just my own specific site needs.
 
 With this repository I came up with an approach that allows you to use any of my MU plugins in a way that allows you to customize them and even apply updates to them, without having to manually copy files every time.
 
@@ -44,7 +44,7 @@ To apply updates to the project later, if you use Composer, a simple `composer u
 
 ## Included features
 
-Each feature is implemented within a single MU plugin file. Note that the features definitely vary in how opinionated there are, so please use and adjust to taste.
+Each feature is implemented within a single MU plugin file. Note that the features definitely vary in how opinionated there are, so please use and adjust to taste. Even I myself am not using all of these features for every site, so I encourage you to pick and choose what works for you.
 
 | MU plugin feature | Description | Config variables |
 | ----------------- | ----------- | ---------------- |
@@ -54,6 +54,28 @@ Each feature is implemented within a single MU plugin file. Note that the featur
 | [Add Login Branding](felixarntz-mu-plugins/add-login-branding.php) | Adds site specific branding to the login page. | `login_highlight_color`<br>`login_highlight_color_hover`<br>`login_header_image_url`<br>`login_header_image_size` |
 | [Bulk Edit Defer Term Counting](felixarntz-mu-plugins/bulk-edit-defer-term-counting.php) | Defers term counting when bulk editing to avoid slow queries for each post updated. | |
 | [Clean Plugin Menus](felixarntz-mu-plugins/clean-plugin-menus.php) | Cleans up top level menu items from plugins in WP Admin. | `feedback_menu_title`<br>`insights_menu_title`<br>`move_plugin_menus` |
+| [Disable Auto Updates](felixarntz-mu-plugins/disable-auto-updates.php) | Disables all auto updates. | |
+| [Disable Block Editor Fullscreen Mode](felixarntz-mu-plugins/disable-block-editor-fullscreen-mode.php) | Disables the block editor's full screen mode by default. | |
+| [Disable Comments](felixarntz-mu-plugins/disable-comments.php) | Disables comments. | |
+| [Disable Custom Block Colors Gradients Font Sizes](felixarntz-mu-plugins/disable-custom-block-colors-gradients-font-sizes.php) | Disables custom colors, custom gradients, custom font sizes etc. for the block editor to enforce a uniform style. | |
+| [Disable Emoji](felixarntz-mu-plugins/disable-emoji.php) | Removes emoji script and related logic. | |
+| [Disable Legacy CSS](felixarntz-mu-plugins/disable-legacy-css.php) | Removes legacy CSS from certain widgets and shortcodes from wp_head output. | |
+| [Disable Non Production Indexing](felixarntz-mu-plugins/disable-non-production-indexing.php) | Ensures that the site is not indexable in a non-production environment. | |
+| [Disable Pages](felixarntz-mu-plugins/disable-pages.php) | Disables modifying pages. | |
+| [Disable Pingbacks](felixarntz-mu-plugins/disable-pingbacks.php) | Disables pingbacks and trackbacks. | |
+| [Disable Post Tags](felixarntz-mu-plugins/disable-post-tags.php) | Disables using and assigning tags for posts (and other post types). | |
+| [Disable RSS Links](felixarntz-mu-plugins/disable-rss-links.php) | Removes RSS feed links from wp_head output. | |
+| [Disable XML-RPC](felixarntz-mu-plugins/disable-xmlrpc.php) | Disables XML-RPC access to the site. | |
+| [Fix Tools Menu Capability](felixarntz-mu-plugins/fix-tools-menu-capability.php) | Ensures that the Tools menu is only shown if the user has the capabilities to do something with it. | |
+| [Hide Dashboard](felixarntz-mu-plugins/hide-dashboard.php) | Hides the WordPress dashboard if no additional submenu pages are added to it. | `replace_dashboard_startup_screen` |
+| [Hide Profile Menu](felixarntz-mu-plugins/hide-profile-menu.php) | Hides the Profile submenu item and, if applicable, menu item in favor of link in account menu. | |
+| [Make Site Private](felixarntz-mu-plugins/make-site-private.php) | Makes the entire site private so that only logged-in users can see the content. | |
+| [Modernize Account Menu Style](felixarntz-mu-plugins/modernize-account-menu-style.php) | Modifies the styling of the account menu in the admin bar to display a larger circled avatar image. | |
+| [Modify Allowed Block Types](felixarntz-mu-plugins/modify-allowed-block-types.php) | Modifies the block types allowed in the block editor. | `allowed_block_types_all`<br>`allowed_block_types_{$context}`<br>`allowed_block_types_post_type_{$post_type}`<br>`disallowed_block_types_all`<br>`disallowed_block_types_{$context}`<br>`disallowed_block_types_post_type_{$post_type}` |
+| [Modify REST Root](felixarntz-mu-plugins/modify-rest-root.php) | Modifies the REST API root to a different one, by default using api. | `rest_root` |
+| [Obscure WP Head](felixarntz-mu-plugins/obscure-wp-head.php) | Removes useless WordPress indicators from wp_head output. | `remove_wp_head_rest_references`<br>`remove_wp_head_oembed_references` |
+| [Optimize Last Post Modified](felixarntz-mu-plugins/optimize-lastpostmodified.php) | Optimizes the logic to get last post modified to avoid database queries for better performance. | |
+| [Optimize Meta Table Schema](felixarntz-mu-plugins/optimize-meta-table-schema.php) | Optimizes performance of the meta database tables by adding an index to the meta_value field. | |
 
 ## Alternative usage
 

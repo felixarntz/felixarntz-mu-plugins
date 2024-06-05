@@ -1,6 +1,6 @@
 # Felix Arntz MU Plugins
 
-My collection of MU plugins in individual files within a subdirectory, fully configurable in a maintainable way which still allows you to apply updates from this repository. [Learn more about MU plugins.](https://developer.wordpress.org/advanced-administration/plugins/mu-plugins/)
+My collection of MU plugins in individual files within a subdirectory, fully configurable in a maintainable way which allows for automatic updates. [Learn more about MU plugins.](https://developer.wordpress.org/advanced-administration/plugins/mu-plugins/)
 
 1. [Context](#context)
 2. [Project structure](#project-structure)

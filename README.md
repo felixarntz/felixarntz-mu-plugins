@@ -68,7 +68,7 @@ The following tables list all features available as part of this project, groupe
 
 | MU plugin feature | Description | Config variables |
 | ----------------- | ----------- | ---------------- |
-| [Add Admin Color Scheme Branding](felixarntz-mu-plugins/add-admin-color-scheme-branding.php) | Adds an admin color scheme reflecting the specific brand colors. | `admin_color_scheme_base_color`<br>`admin_color_scheme_icon_color`<br>`admin_color_scheme_text_color`<br>`admin_color_scheme_highlight_color`<br>`admin_color_scheme_accent_color`<br>`admin_color_scheme_link_color`<br>`admin_color_scheme_enforced` |
+| [Add Admin Color Scheme Branding](felixarntz-mu-plugins/add-admin-color-scheme-branding.php) | Adds an admin color scheme reflecting the site specific brand colors. | `admin_color_scheme_base_color`<br>`admin_color_scheme_icon_color`<br>`admin_color_scheme_text_color`<br>`admin_color_scheme_highlight_color`<br>`admin_color_scheme_accent_color`<br>`admin_color_scheme_link_color`<br>`admin_color_scheme_enforced` |
 | [Add Login Branding](felixarntz-mu-plugins/add-login-branding.php) | Adds site specific branding to the login page. | `login_highlight_color`<br>`login_highlight_color_hover`<br>`login_header_image_url`<br>`login_header_image_size` |
 | [Clean Plugin Menus](felixarntz-mu-plugins/clean-plugin-menus.php) | Cleans up top level menu items from plugins in WP Admin. | `feedback_menu_title`<br>`insights_menu_title`<br>`move_plugin_menus` |
 | [Fix Tools Menu Capability](felixarntz-mu-plugins/fix-tools-menu-capability.php) | Ensures that the Tools menu is only shown if the user has the capabilities to do something with it. | |

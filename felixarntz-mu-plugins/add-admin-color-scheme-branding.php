@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Add Admin Color Scheme Branding
  * Plugin URI: https://github.com/felixarntz/felixarntz-mu-plugins
- * Description: Adds an admin color scheme reflecting the specific brand colors.
+ * Description: Adds an admin color scheme reflecting the site specific brand colors.
  * Author: Felix Arntz
  * Author URI: https://felix-arntz.me
  * License: GPLv2 or later

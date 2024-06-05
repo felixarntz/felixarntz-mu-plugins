@@ -50,7 +50,42 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 		 * @return array List of PHP file names within the subdirectory.
 		 */
 		public static function files_allowlist(): array {
-			return array();
+			return array(
+				'add-admin-color-scheme-branding.php',
+				'add-client-role.php',
+				'add-edit-layout-capability.php',
+				'add-login-branding.php',
+				'bulk-edit-defer-term-counting.php',
+				'clean-plugin-menus.php',
+				'disable-auto-updates.php',
+				'disable-block-editor-fullscreen-mode.php',
+				'disable-comments.php',
+				'disable-custom-block-colors-gradients-font-sizes.php',
+				'disable-emoji.php',
+				'disable-legacy-css.php',
+				'disable-non-production-indexing.php',
+				'disable-pages.php',
+				'disable-pingbacks.php',
+				'disable-post-tags.php',
+				'disable-rss-links.php',
+				'disable-xmlrpc.php',
+				'fix-tools-menu-capability.php',
+				'hide-dashboard.php',
+				'hide-profile-menu.php',
+				'make-site-private.php',
+				'modernize-account-menu-style.php',
+				'modify-allowed-block-types.php',
+				'modify-rest-root.php',
+				'obscure-wp-head.php',
+				'optimize-lastpostmodified.php',
+				'optimize-meta-table-schema.php',
+				'prevent-custom-menu-order.php',
+				'remove-add-new-submenu-links.php',
+				'remove-dashboard-widgets.php',
+				'simplify-themes-menu.php',
+				'use-ambiguous-login-error.php',
+				'use-content-menu.php',
+			);
 		}
 
 		/**

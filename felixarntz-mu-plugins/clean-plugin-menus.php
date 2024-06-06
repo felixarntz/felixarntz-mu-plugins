@@ -141,8 +141,11 @@ add_action(
 				':'
 			);
 		}
-		$jetpack_subscribers_url = esc_url(
+		$jetpack_subscribers_old = esc_url(
 			'https://jetpack.com/redirect/?source=jetpack-menu-calypso-subscribers&site=' . $jetpack_site_id
+		);
+		$jetpack_subscribers_new = esc_url(
+			'https://jetpack.com/redirect/?source=jetpack-menu-jetpack-manage-subscribers&site=' . $jetpack_site_id
 		);
 
 		$move_plugin_menus = array_merge(
@@ -157,7 +160,8 @@ add_action(
 				'jetpack#/settings'       => 'settings',
 				'jetpack-boost'           => 'settings',
 				'jetpack-search'          => 'hide',
-				$jetpack_subscribers_url  => 'insights',
+				$jetpack_subscribers_old  => 'insights',
+				$jetpack_subscribers_new  => 'insights',
 				'wpcf7'                   => 'feedback',
 				'wpcf7-new'               => 'hide',
 				'wpcf7-integration'       => 'settings',

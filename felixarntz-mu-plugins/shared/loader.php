@@ -13,3 +13,4 @@ require_once __DIR__ . '/class-config.php';
 require_once __DIR__ . '/class-file-loader.php';
 require_once __DIR__ . '/class-admin-menu.php';
 require_once __DIR__ . '/class-color-utils.php';
+require_once __DIR__ . '/class-block-pattern-file-parser.php';

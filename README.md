@@ -88,6 +88,7 @@ The following tables list all features available as part of this project, groupe
 | [Disable Block Editor Fullscreen Mode](felixarntz-mu-plugins/disable-block-editor-fullscreen-mode.php) | Disables the block editor's full screen mode by default. | |
 | [Disable Custom Block Colors Gradients Font Sizes](felixarntz-mu-plugins/disable-custom-block-colors-gradients-font-sizes.php) | Disables custom colors, custom gradients, custom font sizes etc. for the block editor to enforce a uniform style. | |
 | [Modify Allowed Block Types](felixarntz-mu-plugins/modify-allowed-block-types.php) | Modifies the block types allowed in the block editor. | `allowed_block_types_all`<br>`allowed_block_types_{$context}`<br>`allowed_block_types_post_type_{$post_type}`<br>`disallowed_block_types_all`<br>`disallowed_block_types_{$context}`<br>`disallowed_block_types_post_type_{$post_type}` |
+| [Modify Block Patterns](felixarntz-mu-plugins/modify-block-patterns.php) | Modifies which block patterns are available, also allowing to provide custom block pattern directories. | `disable_core_patterns`<br>`disable_remote_patterns`<br>`custom_pattern_directories` |
 
 ### Disabling core functionality
 

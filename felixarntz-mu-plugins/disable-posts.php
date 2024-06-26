@@ -41,50 +41,16 @@ add_filter(
 	2
 );
 
-/**
- * Filter callback to reset the edit.php entry of the $_wp_submenu_nopriv global.
- *
- * @param mixed $passthrough Filter value.
- * @return mixed Unaltered $passthrough value.
- */
-function reset_wp_submenu_nopriv_edit_entry_filter( $passthrough ) {
-	global $_wp_submenu_nopriv, $_felixarntz_mu_orig_submenu_nopriv;
-
-	if ( isset( $_felixarntz_mu_orig_submenu_nopriv ) ) {
-		$_wp_submenu_nopriv = $_felixarntz_mu_orig_submenu_nopriv; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		unset( $_felixarntz_mu_orig_submenu_nopriv );
-	}
-
-	// Remove this filter to prevent it from running again, should this hook be called multiple times.
-	remove_filter( 'add_menu_classes', __NAMESPACE__ . '\\reset_wp_submenu_nopriv_edit_entry_filter' );
-
-	return $passthrough;
-}
-
 /*
- * This is a workaround to prevent the posts from being displayed in the admin menu.
- * It is necessary because the user_can_access_admin_page() function returns false for any post type screen just
- * because the 'post' post type is disabled. This is happening due to all these screens using the 'edit.php' page, but
- * only for the 'post' post type it is used without any additional query parameters.
- *
- * The filters 'custom_menu_order' and 'add_menu_classes' are used to temporarily alter the relevant global checked
- * because they are the two hooks closest to the actual check that is performed in user_can_access_admin_page().
+ * These items have to be removed early.
+ * Otherwise their existence will prevent other post type menu items from being accessible.
  */
-add_filter(
-	'custom_menu_order',
-	static function ( $passthrough ) {
-		global $pagenow, $typenow, $_wp_submenu_nopriv, $_felixarntz_mu_orig_submenu_nopriv;
-
-		if ( ( 'edit.php' === $pagenow || 'post-new.php' === $pagenow ) && 'post' !== $typenow && '' !== $typenow ) {
-			$_felixarntz_mu_orig_submenu_nopriv = $_wp_submenu_nopriv;
-			unset( $_wp_submenu_nopriv[ $pagenow ][ $pagenow ] );
-			foreach ( array_keys( $_wp_submenu_nopriv ) as $key ) {
-				unset( $_wp_submenu_nopriv[ $key ][ $pagenow ] );
-			}
-			add_filter( 'add_menu_classes', __NAMESPACE__ . '\\reset_wp_submenu_nopriv_edit_entry_filter' );
-		}
-
-		return $passthrough;
+add_action(
+	'_admin_menu',
+	static function () {
+		remove_submenu_page( 'edit.php', 'edit.php' );
+		remove_submenu_page( 'edit.php', 'post-new.php' );
+		remove_menu_page( 'edit.php' );
 	}
 );
 

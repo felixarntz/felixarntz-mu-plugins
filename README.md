@@ -98,6 +98,7 @@ The following tables list all features available as part of this project, groupe
 | [Disable Comments](felixarntz-mu-plugins/disable-comments.php) | Disables comments. | |
 | [Disable Pages](felixarntz-mu-plugins/disable-pages.php) | Disables pages. | |
 | [Disable Pingbacks](felixarntz-mu-plugins/disable-pingbacks.php) | Disables pingbacks and trackbacks. | |
+| [Disable Post Categories](felixarntz-mu-plugins/disable-post-categories.php) | Disables using and assigning categories for posts (and other post types). | |
 | [Disable Post Tags](felixarntz-mu-plugins/disable-post-tags.php) | Disables using and assigning tags for posts (and other post types). | |
 | [Disable Posts](felixarntz-mu-plugins/disable-posts.php) | Disables posts. | |
 | [Disable XML-RPC](felixarntz-mu-plugins/disable-xmlrpc.php) | Disables XML-RPC access to the site. | |

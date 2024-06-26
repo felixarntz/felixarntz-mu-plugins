@@ -136,7 +136,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 				'remove_dashboard_widgets'              => array(),
 				'remove_wp_head_rest_references'        => false,
 				'remove_wp_head_oembed_references'      => false,
-				'replace_dashboard_startup_screen'      => 'edit.php',
+				'replace_dashboard_startup_screen'      => '',
 				'rest_root'                             => 'api',
 			);
 		}

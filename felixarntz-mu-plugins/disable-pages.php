@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Disable Pages
  * Plugin URI: https://github.com/felixarntz/felixarntz-mu-plugins
- * Description: Disables modifying pages.
+ * Description: Disables pages.
  * Author: Felix Arntz
  * Author URI: https://felix-arntz.me
  * License: GPLv2 or later
@@ -33,6 +33,7 @@ add_filter(
 			case 'delete_others_pages':
 			case 'publish_pages':
 				$caps[] = 'do_not_allow';
+				break;
 		}
 		return $caps;
 	},

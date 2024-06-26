@@ -67,6 +67,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 				'disable-pages.php',
 				'disable-pingbacks.php',
 				'disable-post-tags.php',
+				'disable-posts.php',
 				'disable-rss-links.php',
 				'disable-xmlrpc.php',
 				'fix-tools-menu-capability.php',

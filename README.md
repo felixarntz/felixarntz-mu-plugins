@@ -131,6 +131,7 @@ The following tables list all features available as part of this project, groupe
 | ----------------- | ----------- | ---------------- |
 | [Disable Non Production Indexing](felixarntz-mu-plugins/disable-non-production-indexing.php) | Ensures that the site is not indexable in a non-production environment. | |
 | [Make Site Private](felixarntz-mu-plugins/make-site-private.php) | Makes the entire site private so that only logged-in users can see the content. | |
+| [Modify Allowed MIME Types](felixarntz-mu-plugins/modify-allowed-mime-types.php) | Modifies the MIME types allowed for upload in the media library. | `allowed_mime_types`<br>`disallowed_mime_types` |
 | [Modify REST Root](felixarntz-mu-plugins/modify-rest-root.php) | Modifies the REST API root to a different one, by default using api. | `rest_root` |
 | [Use Ambiguous Login Error](felixarntz-mu-plugins/use-ambiguous-login-error.php) | Modifies the error messages for a failed login attempt to be more ambiguous. | |
 

@@ -76,6 +76,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 				'make-site-private.php',
 				'modernize-account-menu-style.php',
 				'modify-allowed-block-types.php',
+				'modify-allowed-mime-types.php',
 				'modify-rest-root.php',
 				'obscure-wp-head.php',
 				'optimize-lastpostmodified.php',
@@ -115,6 +116,8 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 				'disallowed_block_types_core/edit-post' => array(),
 				'disallowed_block_types_core/edit-site' => array(),
 				'disallowed_block_types_post_type_page' => array(),
+				'allowed_mime_types'                    => array(),
+				'disallowed_mime_types'                 => array(),
 				'client_role_display_name'              => '',
 				'client_role_additional_caps'           => array(
 					'edit_theme_options',

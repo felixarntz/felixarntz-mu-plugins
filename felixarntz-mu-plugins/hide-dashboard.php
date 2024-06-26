@@ -72,7 +72,13 @@ add_action(
 							$config         = Shared\Config::instance();
 							$startup_screen = $config->get( 'replace_dashboard_startup_screen', '' );
 							if ( ! $startup_screen ) {
-								$startup_screen = 'edit.php';
+								if ( current_user_can( 'edit_posts' ) ) {
+									$startup_screen = 'edit.php';
+								} elseif ( current_user_can( 'manage_options' ) ) {
+									$startup_screen = 'options-general.php';
+								} else {
+									$startup_screen = 'profile.php';
+								}
 							}
 							wp_safe_redirect( admin_url( $startup_screen ) );
 							exit;

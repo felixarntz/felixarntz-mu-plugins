@@ -53,3 +53,14 @@ add_filter(
 		return $wp_theme_json_data;
 	}
 );
+
+// Also disallow editing spacing for all blocks.
+add_filter(
+	'register_block_type_args',
+	static function ( $args ) {
+		if ( isset( $args['supports']['spacing'] ) && ! current_user_can( 'edit_layout' ) ) {
+			$args['supports']['spacing'] = false;
+		}
+		return $args;
+	}
+);

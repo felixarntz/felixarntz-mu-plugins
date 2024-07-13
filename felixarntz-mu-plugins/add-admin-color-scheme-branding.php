@@ -119,7 +119,7 @@ add_action(
 		 * the color scheme.
 		 */
 		$current_color_scheme = get_user_option( 'admin_color' );
-		if ( 'brand' === $current_color_scheme || isset( $GLOBALS['pagenow'] ) && 'profile.php' === $GLOBALS['pagenow'] ) {
+		if ( 'brand' === $current_color_scheme || ( isset( $GLOBALS['pagenow'] ) && 'profile.php' === $GLOBALS['pagenow'] ) ) {
 			$inline_css = ':root {';
 			foreach ( $colors as $color_id => $color_value ) {
 				$inline_css .= ' --brand-color-scheme-' . str_replace( '_', '-', $color_id ) . ':';

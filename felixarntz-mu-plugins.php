@@ -52,8 +52,8 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 		public static function files_allowlist(): array {
 			return array(
 				'add-admin-color-scheme-branding.php',
+				'add-block-editor-capabilities.php',
 				'add-client-role.php',
-				'add-edit-layout-capability.php',
 				'add-login-branding.php',
 				'bulk-edit-defer-term-counting.php',
 				'clean-plugin-menus.php',
@@ -103,6 +103,10 @@ if ( ! class_exists( __NAMESPACE__ . '\\Loader' ) ) {
 		 */
 		public static function config(): array {
 			return array(
+				'add_edit_colors_capability'            => false,
+				'add_edit_layout_capability'            => true,
+				'add_edit_typography_capability'        => false,
+				'grant_capabilities_via_edit_theme_options' => true,
 				'admin_color_scheme_base_color'         => '#1d2327',
 				'admin_color_scheme_icon_color'         => '#a7aaad',
 				'admin_color_scheme_text_color'         => '#fff',

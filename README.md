@@ -85,6 +85,7 @@ The following tables list all features available as part of this project, groupe
 
 | MU plugin feature | Description | Config variables |
 | ----------------- | ----------- | ---------------- |
+| [Add Block Editor Capabilities](felixarntz-mu-plugins/add-block-editor-capabilities.php) | Adds dedicated user capabilities for editing block editor features like block colors, typography, or layout. | `add_edit_colors_capability`<br>`add_edit_layout_capability`<br>`add_edit_typography_capability`<br>`grant_capabilities_via_edit_theme_options` |
 | [Disable Block Editor Fullscreen Mode](felixarntz-mu-plugins/disable-block-editor-fullscreen-mode.php) | Disables the block editor's full screen mode by default. | |
 | [Disable Custom Block Colors Gradients Font Sizes](felixarntz-mu-plugins/disable-custom-block-colors-gradients-font-sizes.php) | Disables custom colors, custom gradients, custom font sizes etc. for the block editor to enforce a uniform style. | |
 | [Modify Allowed Block Types](felixarntz-mu-plugins/modify-allowed-block-types.php) | Modifies the block types allowed in the block editor. | `allowed_block_types_all`<br>`allowed_block_types_{$context}`<br>`allowed_block_types_post_type_{$post_type}`<br>`disallowed_block_types_all`<br>`disallowed_block_types_{$context}`<br>`disallowed_block_types_post_type_{$post_type}` |
@@ -112,13 +113,6 @@ The following tables list all features available as part of this project, groupe
 | [Disable RSS Links](felixarntz-mu-plugins/disable-rss-links.php) | Removes RSS feed links from wp_head output. | |
 | [Obscure WP Head](felixarntz-mu-plugins/obscure-wp-head.php) | Removes useless WordPress indicators from wp_head output. | `remove_wp_head_rest_references`<br>`remove_wp_head_oembed_references` |
 
-### User capabilities / permissions
-
-| MU plugin feature | Description | Config variables |
-| ----------------- | ----------- | ---------------- |
-| [Add Client Role](felixarntz-mu-plugins/add-client-role.php) | Adds a role for clients with additional capabilities than editors, but not quite admin. | `client_role_display_name`<br>`client_role_additional_caps` |
-| [Add Edit Layout Capability](felixarntz-mu-plugins/add-edit-layout-capability.php) | Adds a dedicated capability for editing layout in the block editor. | |
-
 ### Performance optimization
 
 | MU plugin feature | Description | Config variables |
@@ -131,6 +125,7 @@ The following tables list all features available as part of this project, groupe
 
 | MU plugin feature | Description | Config variables |
 | ----------------- | ----------- | ---------------- |
+| [Add Client Role](felixarntz-mu-plugins/add-client-role.php) | Adds a role for clients with additional capabilities than editors, but not quite admin. | `client_role_display_name`<br>`client_role_additional_caps` |
 | [Disable Non Production Indexing](felixarntz-mu-plugins/disable-non-production-indexing.php) | Ensures that the site is not indexable in a non-production environment. | |
 | [Make Site Private](felixarntz-mu-plugins/make-site-private.php) | Makes the entire site private so that only logged-in users can see the content. | |
 | [Modify Allowed MIME Types](felixarntz-mu-plugins/modify-allowed-mime-types.php) | Modifies the MIME types allowed for upload in the media library. | `allowed_mime_types`<br>`disallowed_mime_types` |

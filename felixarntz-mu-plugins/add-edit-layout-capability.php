@@ -18,49 +18,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-// Grant the 'edit_layout' capability to everyone that can 'edit_theme_options'.
-add_filter(
-	'user_has_cap',
-	static function ( $allcaps ) {
-		if ( isset( $allcaps['edit_theme_options'] ) ) {
-			$allcaps['edit_layout'] = $allcaps['edit_theme_options'];
-		}
-		return $allcaps;
-	}
-);
-
-// Disallow editing layout in the block editor unless the current user can 'edit_layout'.
-add_filter(
-	'wp_theme_json_data_default',
-	static function ( $wp_theme_json_data ) {
-		// Bail if the current user can edit the layout.
-		if ( current_user_can( 'edit_layout' ) ) {
-			return $wp_theme_json_data;
-		}
-
-		// This only works in WordPress 6.4+.
-		$wp_theme_json_data->update_with(
-			array(
-				'version'  => \WP_Theme_JSON::LATEST_SCHEMA,
-				'settings' => array(
-					'layout' => array(
-						'allowEditing' => false,
-					),
-				),
-			)
-		);
-
-		return $wp_theme_json_data;
-	}
-);
-
-// Also disallow editing spacing for all blocks.
-add_filter(
-	'register_block_type_args',
-	static function ( $args ) {
-		if ( isset( $args['supports']['spacing'] ) && ! current_user_can( 'edit_layout' ) ) {
-			$args['supports']['spacing'] = false;
-		}
-		return $args;
-	}
-);
+_deprecated_file( 'add-edit-layout-capability.php', 'felixarntz-mu-plugins 1.2.0', 'add-block-editor-capabilities.php' );
+require_once __DIR__ . '/add-block-editor-capabilities.php';

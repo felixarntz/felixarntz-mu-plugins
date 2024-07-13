@@ -10,7 +10,9 @@
 		<exclude name="WordPress.Files.FileName"/>
 		<properties>
 			<property name="custom_capabilities" type="array">
+				<element value="edit_colors"/>
 				<element value="edit_layout"/>
+				<element value="edit_typography"/>
 			</property>
 		</properties>
 	</rule>

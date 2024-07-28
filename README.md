@@ -77,7 +77,7 @@ The following tables list all features available as part of this project, groupe
 | [Modernize Account Menu Style](felixarntz-mu-plugins/modernize-account-menu-style.php) | Modifies the styling of the account menu in the admin bar to display a larger circled avatar image. | |
 | [Prevent Custom Menu Order](felixarntz-mu-plugins/prevent-custom-menu-order.php) | Forces the custom menu order filter to disabled which tends to be used by plugins to put themselves to the top of the admin menu. | |
 | [Remove Add New Submenu Links](felixarntz-mu-plugins/remove-add-new-submenu-links.php) | Removes all the Add New submenu items in the admin. | |
-| [Remove Dashboard Widgets](felixarntz-mu-plugins/remove-dashboard-widgets.php) | Removes all default widgets from the WordPress dashboard. | `remove_dashboard_widgets` |
+| [Remove Dashboard Widgets](felixarntz-mu-plugins/remove-dashboard-widgets.php) | Removes all default widgets from the WordPress dashboard. | `remove_dashboard_widgets`<br>`remove_default_dashboard_widgets` |
 | [Simplify Themes Menu](felixarntz-mu-plugins/simplify-themes-menu.php) | Simplifies the Themes Menu to be purely about editing if the current user cannot switch themes. | |
 | [Use Content Menu](felixarntz-mu-plugins/use-content-menu.php) | Moves all post type admin menus into a single Content menu. | `indent_content_menu_taxonomies` |
 

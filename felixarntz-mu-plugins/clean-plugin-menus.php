@@ -120,6 +120,7 @@ add_action(
 			}
 
 			return array(
+				'identifier'   => $submenu_page[2],
 				'old_parent'   => $menu_page[2],
 				'new_parent'   => $new_menu_slug,
 				'old_hookname' => $old_hookname,
@@ -187,41 +188,53 @@ add_action(
 
 			$submenu_pages = $admin_menu->get_submenu_pages( $menu_slug );
 			foreach ( $submenu_pages as $submenu_page ) {
-				if ( isset( $move_plugin_menus[ $submenu_page[2] ] ) ) {
+				$submenu_slug = $submenu_page[2];
+				if ( str_starts_with( $submenu_slug, admin_url( '/' ) ) && str_contains( $submenu_slug, 'page=' ) ) {
+					$submenu_slug = preg_match( '/(\?|&)page=([^&]+)/', $submenu_slug, $matches ) ? $matches[2] : $submenu_slug;
+				}
+				if ( isset( $move_plugin_menus[ $submenu_slug ] ) ) {
 					// Do not make any change if no target set or explicitly forced to keep.
-					if ( empty( $move_plugin_menus[ $submenu_page[2] ] ) || 'keep' === $move_plugin_menus[ $submenu_page[2] ] ) {
+					if ( empty( $move_plugin_menus[ $submenu_slug ] ) || 'keep' === $move_plugin_menus[ $submenu_slug ] ) {
 						continue;
 					}
 
 					// Simply hide the submenu page if target set to 'hide'.
-					if ( 'hide' === $move_plugin_menus[ $submenu_page[2] ] ) {
+					if ( 'hide' === $move_plugin_menus[ $submenu_slug ] ) {
 						$admin_menu->remove_submenu_page( $menu_page[2], $submenu_page[2] );
 						continue;
 					}
 
 					// Otherwise, attempt to move to the target menu set.
-					$migration_data = $migrate_item( $submenu_page, $menu_page, $move_plugin_menus[ $submenu_page[2] ] );
+					$migration_data = $migrate_item( $submenu_page, $menu_page, $move_plugin_menus[ $submenu_slug ] );
 					if ( $migration_data ) {
-						$moved[ $submenu_page[2] ]                    = $migration_data;
-						$moved[ $submenu_page[2] ]['new_parent_file'] = str_ends_with( $migration_data['new_parent'], '.php' ) ? $migration_data['new_parent'] : 'admin.php';
-						$moved[ $submenu_page[2] ]['hash_children']   = array();
-						if ( str_contains( $submenu_page[2], '#' ) ) {
-							$unhashed_slug = explode( '#', $submenu_page[2] )[0];
+						$moved[ $submenu_slug ]                    = $migration_data;
+						$moved[ $submenu_slug ]['new_parent_file'] = str_ends_with( $migration_data['new_parent'], '.php' ) ? $migration_data['new_parent'] : 'admin.php';
+						$moved[ $submenu_slug ]['hash_children']   = array();
+						if ( str_contains( $submenu_slug, '#' ) ) {
+							$unhashed_slug = explode( '#', $submenu_slug )[0];
 							if ( isset( $moved[ $unhashed_slug ] ) ) {
-								if ( 'admin.php' === $moved[ $submenu_page[2] ]['new_parent_file'] ) {
-									$moved[ $unhashed_slug ]['new_parent']      = $moved[ $submenu_page[2] ]['new_parent'];
-									$moved[ $unhashed_slug ]['new_parent_file'] = $moved[ $submenu_page[2] ]['new_parent_file'];
+								if ( 'admin.php' === $moved[ $submenu_slug ]['new_parent_file'] ) {
+									$moved[ $unhashed_slug ]['new_parent']      = $moved[ $submenu_slug ]['new_parent'];
+									$moved[ $unhashed_slug ]['new_parent_file'] = $moved[ $submenu_slug ]['new_parent_file'];
 								}
-								$moved[ $unhashed_slug ]['hash_children'][] = $submenu_page[2];
+								$moved[ $unhashed_slug ]['hash_children'][] = $submenu_slug;
 								continue;
 							}
-							$moved[ $unhashed_slug ]                  = $moved[ $submenu_page[2] ];
-							$moved[ $unhashed_slug ]['hash_children'] = array( $submenu_page[2] );
+							$moved[ $unhashed_slug ]                  = $moved[ $submenu_slug ];
+							$moved[ $unhashed_slug ]['hash_children'] = array( $submenu_slug );
 						}
 					}
 				}
 			}
 		}
+
+		// Jetpack-specific fix, in case its menus are moved.
+		add_action(
+			'admin_footer',
+			static function () {
+				wp_add_inline_script( 'react-plugin', 'window.wpNavMenuClassChange = () => {};' );
+			}
+		);
 
 		add_action(
 			'admin_init',
@@ -262,7 +275,7 @@ add_action(
 				// Override further variables if this is a hashed child page.
 				if ( $real_page_slug !== $plugin_page ) {
 					// Set $title global to prevent it from being null, which can cause a PHP notice.
-					$submenu_page = $admin_menu->get_submenu_page( $current_moved_page['new_parent'], $real_page_slug );
+					$submenu_page = $admin_menu->get_submenu_page( $current_moved_page['new_parent'], $current_moved_page['identifier'] );
 					if ( $submenu_page ) {
 						// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 						$GLOBALS['title'] = isset( $submenu_page[3] ) ? $submenu_page[3] : $submenu_page[0];

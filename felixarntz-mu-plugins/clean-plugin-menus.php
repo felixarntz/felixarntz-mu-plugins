@@ -232,7 +232,14 @@ add_action(
 		add_action(
 			'admin_footer',
 			static function () {
+				$js = 'const hiddenElem = document.createElement( "div" );
+hiddenElem.id = "toplevel_page_jetpack";
+hiddenElem.style.display = "none";
+hiddenElem.innerHTML = "<div class=\'wp-submenu\'></div>";
+document.body.appendChild( hiddenElem );';
+				wp_add_inline_script( 'react-plugin', $js, 'before' );
 				wp_add_inline_script( 'react-plugin', 'window.wpNavMenuClassChange = () => {};' );
+				wp_add_inline_script( 'react-plugin', 'document.body.removeChild( document.getElementById( "toplevel_page_jetpack" ) )' );
 			}
 		);
 

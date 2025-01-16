@@ -246,9 +246,22 @@ document.body.appendChild( hiddenElem );';
 		add_action(
 			'admin_init',
 			function () use ( $moved, $admin_menu ) {
-				global $pagenow, $plugin_page;
+				global $pagenow, $plugin_page, $title;
 
-				if ( ! isset( $plugin_page ) || ! isset( $moved[ $plugin_page ] ) ) {
+				if ( ! isset( $plugin_page ) ) {
+					return;
+				}
+
+				// Prevent PHP warnings about `$title` being null.
+				if ( ! is_string( $title ) ) {
+					$page_item = $admin_menu->get_menu_page( $plugin_page );
+					if ( ! $page_item ) {
+						$page_item = $admin_menu->get_submenu_page( '', $plugin_page );
+					}
+					$title = $page_item ? $page_item[0] : ''; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+				}
+
+				if ( ! isset( $moved[ $plugin_page ] ) ) {
 					return;
 				}
 
@@ -271,7 +284,7 @@ document.body.appendChild( hiddenElem );';
 					add_action(
 						'load-' . $current_moved_page['new_hookname'],
 						function () use ( $current_moved_page ) {
-							global $hook_suffix, $title;
+							global $hook_suffix;
 
 							// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 							$hook_suffix = $current_moved_page['old_hookname'];

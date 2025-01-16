@@ -44,7 +44,7 @@ After installing the project, you need to copy the `wp-content/mu-plugins/felixa
 
 ### Configuration
 
-The project includes a many features, enhancements, and tweaks, some of which are more opinionated than others. You'll most certainly want to customize which features are loaded for your site and how they are configured. You can do so by tweaking your own copy of the loader file `wp-content/mu-plugins/felixarntz-mu-plugins.php`.
+The project includes many features, enhancements, and tweaks, some of which are more opinionated than others. You'll most certainly want to customize which features are loaded for your site and how they are configured. You can do so by tweaking your own copy of the loader file `wp-content/mu-plugins/felixarntz-mu-plugins.php`.
 
 The class in the file contains two arrays that are intended to be modified:
 * The indexed array returned by the `Loader::files_allowlist()` method should contain the list of MU plugin PHP file names (i.e. features) which should be loaded.

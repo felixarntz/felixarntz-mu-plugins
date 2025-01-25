@@ -37,7 +37,7 @@ add_filter(
 			)
 		);
 		if ( $error_codes ) {
-			$error  = '<strong>' . esc_html__( 'Error:', 'felixarntz-mu-plugins' ) . '<strong> ';
+			$error  = '<strong>' . esc_html__( 'Error:', 'felixarntz-mu-plugins' ) . '</strong> ';
 			$error .= esc_html__( 'The username/email address or password is incorrect. Please try again.', 'felixarntz-mu-plugins' );
 		}
 

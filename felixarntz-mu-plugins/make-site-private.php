@@ -27,6 +27,11 @@ add_action(
 			return;
 		}
 
+		// Don't redirect requests for robots.txt.
+		if ( is_robots() ) {
+			return;
+		}
+
 		// Don't redirect REST request, instead use authentication error.
 		if ( defined( 'REST_REQUEST' ) ) {
 			return;

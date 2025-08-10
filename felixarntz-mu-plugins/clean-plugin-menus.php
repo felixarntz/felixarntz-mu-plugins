@@ -161,6 +161,7 @@ add_action(
 				'jetpack#/settings'       => 'settings',
 				'jetpack-boost'           => 'settings',
 				'jetpack-search'          => 'hide',
+				'jetpack-social'          => 'hide',
 				$jetpack_subscribers_old  => 'insights',
 				$jetpack_subscribers_new  => 'insights',
 				'wpcf7'                   => 'feedback',

@@ -176,6 +176,7 @@ add_action(
 				'wpseo_workouts'          => 'hide',
 				'wpseo_redirects'         => 'hide',
 				'wpseo_page_support'      => 'hide',
+				'wpseo_upgrade_sidebar'   => 'hide',
 			),
 			$config->get( 'move_plugin_menus', array() )
 		);
